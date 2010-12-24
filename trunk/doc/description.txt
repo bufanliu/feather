@@ -1,0 +1,13 @@
+Project name:Feather
+
+Project summary:A very easy,useful and smart ActionScript3.0 library which likes feather 
+
+Description:A very easy,useful and smart ActionScript3.0 library which likes feather provides many utils and components for developers who want to creat flash aplications fastly
+
+
+简单 实用 稳定 高效 灵活
+
+aesy useful reliable fast smart
+
+
+
