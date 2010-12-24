@@ -67,6 +67,7 @@ package org.feather.lib.core
 			_style.hsize=_hsize=(_style && (_style.hsize || _style.hsize === 0)) ? _style.hsize : LayoutConfig.DEFAULT_H;
 			_style.rw=_rw=(_style && (_style.rw || _style.rw === 0)) ? _style.rw : LayoutConfig.DEFAULT_RW;
 			_style.rh=_rh=(_style && (_style.rh || _style.rh === 0)) ? _style.rh : LayoutConfig.DEFAULT_RH;
+			_style.enabled=_enabled=(_style&&_style.enabled==false)?false:true;
 			_style.isValidate=_isValidate=_style && _style.isValidate ? _style.isValidate : false;
 			//new Option(_style).apply(this);
 		}
