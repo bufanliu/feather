@@ -28,6 +28,7 @@ package org.feather.lib.interactive
 		protected var _disabledSkin:*;
 		protected var _reactionArea:*;
 		protected var _background:DisplayObject;
+		protected var _firstRender:Boolean;
 
 		public function BaseButton(style:Object=null)
 		{
@@ -37,6 +38,7 @@ package org.feather.lib.interactive
 		override protected function initData():void
 		{
 			super.initData();
+			_firstRender=true;
 			//_defaultSkin={up: null, over: null, down: null, disabled: null, reaction: null};
 			_defaultSkin={up: new Button_upSkin, over: new Button_overSkin, down: new Button_downSkin, disabled: new Button_disabledSkin, reaction: new Button_upSkin};
 			_style.skin=_skin=_style && _style.skin ? _style.skin : _defaultSkin;
@@ -54,29 +56,34 @@ package org.feather.lib.interactive
 			{
 				if (_disabledSkin && !contains(_disabledSkin))
 				{
-					addChild(_disabledSkin);
+					addChildAt(_disabledSkin, 0);
 				}
 				if (_downSkin && !contains(_downSkin))
 				{
-					addChild(_downSkin);
+					addChildAt(_downSkin, 1);
 				}
 				if (_overSkin && !contains(_overSkin))
 				{
-					addChild(_overSkin);
+					addChildAt(_overSkin, 2);
 				}
 				if (_upSkin && !contains(_upSkin))
 				{
-					addChild(_upSkin);
+					addChildAt(_upSkin, 3);
 				}
 				if (_reactionArea && !contains(_reactionArea))
 				{
-					addChild(_reactionArea);
+					addChildAt(_reactionArea, 4);
 				}
-				_disabledSkin.visible=
-				_upSkin.visible=
-				_overSkin.visible=
-				_downSkin.visible=
-				_reactionArea.visible=
+				if (_firstRender)
+				{
+					_firstRender=false;
+					_upSkin.visible=_enabled;
+					_overSkin.visible=false;
+					_downSkin.visible=false;
+					_disabledSkin.visible=!_enabled;
+					_reactionArea.visble=true;
+					_reactionArea.alpha=0;
+				}
 				registerButtonEvent();
 			}
 		}
