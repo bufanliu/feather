@@ -21,7 +21,7 @@ package
 	import org.feather.utils.display.Layout;
 	import org.feather.utils.events.ExtEvent;
 
-	[SWF(width="400", height="300", backgroundColor="#FFFFFF", frameRate="25")]
+	[SWF(width="400", height="300", backgroundColor="#FF0000", frameRate="25")]
 	public class Feather extends Sprite
 	{
 		public function Feather()
