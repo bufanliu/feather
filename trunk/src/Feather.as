@@ -21,7 +21,7 @@ package
 	import org.feather.utils.display.Layout;
 	import org.feather.utils.events.ExtEvent;
 
-	[SWF(width="400", height="300", backgroundColor="#FF0000", frameRate="25")]
+	[SWF(width="400", height="300", backgroundColor="#FFFFFF", frameRate="25")]
 	public class Feather extends Sprite
 	{
 		public function Feather()
@@ -29,7 +29,7 @@ package
 			/*var a:Label=new Label();
 			   a.selectable=true;
 			   a.autoSize=TextFieldAutoSize.CENTER;
-
+			
 			   var format:TextFormat=new TextFormat();
 			   format.font="微软雅黑";
 			   format.size=24;
@@ -46,9 +46,9 @@ package
 			var b:BaseButton=new BaseButton();
 			b.buttonMode=true;
 			b.useHandCursor=true;
+			b.enabled=true;
 			addChild(b);
-
-			var e:ExtEvent=new ExtEvent("aaa");
+			Layout.setCenterOO(b,stage);
 
 		}
 	}
