@@ -10,7 +10,7 @@ package
 	import org.feather.lib.core.BaseUIComponent;
 	import org.feather.lib.core.IBaseUIComponent;
 	import org.feather.lib.core.Repainter;
-	import org.feather.lib.interactive.BaseButton;
+	import org.feather.lib.controls.BaseButton;
 	import org.feather.lib.layout.BaseBorder;
 	import org.feather.lib.layout.Container;
 	import org.feather.lib.layout.Label;
