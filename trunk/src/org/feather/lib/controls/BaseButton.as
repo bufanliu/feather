@@ -21,7 +21,6 @@ package org.feather.lib.controls
 	public class BaseButton extends BaseUIComponent
 	{
 		protected var _skin:Object;
-		protected var _defaultSkin:Object;
 		protected var _upSkin:*;
 		protected var _overSkin:*;
 		protected var _downSkin:*;
@@ -29,6 +28,7 @@ package org.feather.lib.controls
 		protected var _reactionArea:*;
 		protected var _background:DisplayObject;
 		protected var _firstRender:Boolean;
+		protected var _defaultSkin:Object={up: null, over: null, down: null, disabled: null, reaction: null};
 
 		public function BaseButton(style:Object=null)
 		{
@@ -38,16 +38,13 @@ package org.feather.lib.controls
 		override protected function initData():void
 		{
 			super.initData();
-			_firstRender=true;
-			_defaultSkin={up: null, over: null, down: null, disabled: null, reaction: null};
-			//_defaultSkin={up: new Button_upSkin, over: new Button_overSkin, down: new Button_downSkin, disabled: new Button_disabledSkin, reaction: new Button_upSkin};
 			_style.skin=_skin=_style && _style.skin ? _style.skin : _defaultSkin;
 			_upSkin=_skin && _skin.up ? _skin.up : _defaultSkin.up;
 			_overSkin=_skin && _skin.over ? _skin.over : _defaultSkin.over;
 			_downSkin=_skin && _skin.down ? _skin.down : _defaultSkin.down;
 			_disabledSkin=_skin && _skin.disabled ? _skin.disabled : _defaultSkin.disabled;
 			_reactionArea=_skin && _skin.reaction ? _skin.reaction : _defaultSkin.reaction;
-			Debugger.debug(_disabledSkin, this);
+			_firstRender=true;
 		}
 
 		override public function render(e:Event=null):void
@@ -77,12 +74,11 @@ package org.feather.lib.controls
 				if (_firstRender)
 				{
 					_firstRender=false;
-					_upSkin.visible=_enabled;
-					_overSkin.visible=false;
-					_downSkin.visible=false;
-					_disabledSkin.visible=!_enabled;
-					_reactionArea.visble=true;
-					_reactionArea.alpha=0;
+					_upSkin ? _upSkin.visible=_enabled : null;
+					_overSkin ? _overSkin.visible=false : null;
+					_downSkin ? _downSkin.visible=false : null;
+					_disabledSkin ? _disabledSkin.visible=!_enabled : null;
+					_reactionArea ? (_reactionArea.visble=true, _reactionArea.alpha=0) : null;
 				}
 				registerButtonEvent();
 			}
@@ -103,37 +99,37 @@ package org.feather.lib.controls
 
 		protected function onMouseOver(e:MouseEvent):void
 		{
-			_upSkin.visible=false;
-			_overSkin.visible=_enabled;
-			_downSkin.visible=false;
-			_disabledSkin.visible=!_enabled;
+			_upSkin ? _upSkin.visible=false : null;
+			_overSkin ? _overSkin.visible=_enabled : null;
+			_downSkin ? _downSkin.visible=false : null;
+			_disabledSkin ? _disabledSkin.visible=!_enabled : null;
 			_enabled ? new ExtEventDispatcher().dispatch(new ExtMouseEvent(MouseEvent.MOUSE_OVER), {}) : null;
 		}
 
 		protected function onMouseDown(e:MouseEvent):void
 		{
-			_upSkin.visible=false;
-			_overSkin.visible=false;
-			_downSkin.visible=_enabled;
-			_disabledSkin.visible=!enabled;
+			_upSkin ? _upSkin.visible=false : null;
+			_overSkin ? _overSkin.visible=false : null;
+			_downSkin ? _downSkin.visible=_enabled : null;
+			_disabledSkin ? _disabledSkin.visible=!enabled : null;
 			_enabled ? new ExtEventDispatcher().dispatch(new ExtMouseEvent(MouseEvent.MOUSE_DOWN), {}) : null;
 		}
 
 		protected function onMouseUp(e:MouseEvent):void
 		{
-			_upSkin.visible=false;
-			_overSkin.visible=_enabled;
-			_downSkin.visible=false;
-			_disabledSkin.visible=!enabled;
+			_upSkin ? _upSkin.visible=false : null;
+			_overSkin ? _overSkin.visible=_enabled : null;
+			_downSkin ? _downSkin.visible=false : null;
+			_disabledSkin ? _disabledSkin.visible=!enabled : null;
 			_enabled ? new ExtEventDispatcher().dispatch(new ExtMouseEvent(MouseEvent.MOUSE_UP), {}) : null;
 		}
 
 		protected function onMouseOut(e:MouseEvent):void
 		{
-			_upSkin.visible=_enabled;
-			_overSkin.visible=false;
-			_downSkin.visible=false;
-			_disabledSkin.visible=!_enabled;
+			_upSkin ? _upSkin.visible=_enabled : null;
+			_overSkin ? _overSkin.visible=false : null;
+			_downSkin ? _downSkin.visible=false : null;
+			_disabledSkin ? _disabledSkin.visible=!_enabled : null;
 			_enabled ? new ExtEventDispatcher().dispatch(new ExtMouseEvent(MouseEvent.MOUSE_OUT), {}) : null;
 		}
 

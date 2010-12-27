@@ -6,11 +6,13 @@ package
 	import flash.events.MouseEvent;
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
-
+	
+	import org.feather.lib.controls.BaseButton;
+	import org.feather.lib.controls.Button;
+	import org.feather.lib.controls.LabelButton;
 	import org.feather.lib.core.BaseUIComponent;
 	import org.feather.lib.core.IBaseUIComponent;
 	import org.feather.lib.core.Repainter;
-	import org.feather.lib.controls.BaseButton;
 	import org.feather.lib.layout.BaseBorder;
 	import org.feather.lib.layout.Container;
 	import org.feather.lib.layout.Label;
@@ -48,6 +50,20 @@ package
 			b.useHandCursor=true;
 			b.enabled=true;
 			addChild(b);
+			Layout.setCenterOO(b,stage);
+			
+			var c:LabelButton=new LabelButton();
+			c.buttonMode=true;
+			c.useHandCursor=true;
+			c.enabled=true;
+			addChild(c);
+			Layout.setCenterOO(b,stage);
+			
+			var d:Button=new Button();
+			d.buttonMode=true;
+			d.useHandCursor=true;
+			d.enabled=true;
+			addChild(d);
 			Layout.setCenterOO(b,stage);
 
 		}

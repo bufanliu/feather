@@ -1,8 +1,9 @@
 package org.feather.lib.controls
 {
-
+	import flash.text.TextField;
+	import flash.text.TextFormat;
 	/**
-	 * 所有按钮组件的基类，用于定义所有按钮共有的属性和方法。 此类将处理绘制状态以及对按钮事件的调度
+	 * 类是一个抽象类，用于向其父 BaseButton 类添加标签、图标及切换功能
 	 * @author Aaron Wei
 	 * @email weilong1@staff.sina.com.cn
 	 * @msn asianfalcon@msn.com
@@ -11,17 +12,16 @@ package org.feather.lib.controls
 	 */
 	public class LabelButton extends BaseButton
 	{
-		protected var _label:Label;
+		protected var _label:String;
 		
 		public function LabelButton(style:Object=null)
 		{
 			super(style);
-
 		}
 
 		override protected function initData():void
 		{
-			_defaultSkin={up: null, over: null, down: null, disabled: null, reaction: null, label: null};
+			super.initData();
 		}
 
 	}

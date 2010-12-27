@@ -148,16 +148,19 @@ package org.feather.utils.display
 		 */
 		public static function setCenterOO(target:DisplayObject, container:DisplayObjectContainer):void
 		{
-			container.addChild(target);
-			if (container is Stage)
+			if (target && container)
 			{
-				target.x=((container as Stage).stageWidth - target.width) / 2;
-				target.y=((container as Stage).stageHeight - target.height) / 2;
-			}
-			else
-			{
-				target.x=(container.width - target.width) / 2;
-				target.y=(container.height - target.height) / 2;
+				container.contains(target) ? null : container.addChild(target);
+				if (container is Stage)
+				{
+					target.x=((container as Stage).stageWidth - target.width) / 2;
+					target.y=((container as Stage).stageHeight - target.height) / 2;
+				}
+				else
+				{
+					target.x=(container.width - target.width) / 2;
+					target.y=(container.height - target.height) / 2;
+				}
 			}
 		}
 
