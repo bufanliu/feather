@@ -90,78 +90,91 @@ package org.feather.lib.interactive
 
 		protected function registerButtonEvent():void
 		{
-			_reactionArea.addEventListener(MouseEvent.MOUSE_OVER, onMouseOver);
-			_reactionArea.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
-			_reactionArea.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
-			_reactionArea.addEventListener(MouseEvent.MOUSE_OUT, onMouseOut);
-			_reactionArea.addEventListener(MouseEvent.CLICK, onClick);
-			_reactionArea.addEventListener(MouseEvent.DOUBLE_CLICK, onDoubleClick);
+			if (_reactionArea)
+			{
+				_reactionArea.hasEventListener(MouseEvent.MOUSE_OVER) ? null : _reactionArea.addEventListener(MouseEvent.MOUSE_OVER, onMouseOver);
+				_reactionArea.hasEventListener(MouseEvent.MOUSE_DOWN) ? null : _reactionArea.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
+				_reactionArea.hasEventListener(MouseEvent.MOUSE_UP) ? null : _reactionArea.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
+				_reactionArea.hasEventListener(MouseEvent.MOUSE_OUT) ? null : _reactionArea.addEventListener(MouseEvent.MOUSE_OUT, onMouseOut);
+				_reactionArea.hasEventListener(MouseEvent.CLICK) ? null : _reactionArea.addEventListener(MouseEvent.CLICK, onClick);
+				_reactionArea.hasEventListener(MouseEvent.DOUBLE_CLICK) ? null : _reactionArea.addEventListener(MouseEvent.DOUBLE_CLICK, onDoubleClick);
+			}
 		}
 
 		protected function onMouseOver(e:MouseEvent):void
 		{
 			_upSkin.visible=false;
-			_overSkin.visible=true;
+			_overSkin.visible=_enabled;
 			_downSkin.visible=false;
-			_disabledSkin.visible=false;
-			new ExtEventDispatcher().dispatch(new ExtMouseEvent(MouseEvent.MOUSE_OVER), {});
+			_disabledSkin.visible=!_enabled;
+			_enabled ? new ExtEventDispatcher().dispatch(new ExtMouseEvent(MouseEvent.MOUSE_OVER), {}) : null;
 		}
 
 		protected function onMouseDown(e:MouseEvent):void
 		{
 			_upSkin.visible=false;
 			_overSkin.visible=false;
-			_downSkin.visible=true;
-			_disabledSkin.visible=false;
-			new ExtEventDispatcher().dispatch(new ExtMouseEvent(MouseEvent.MOUSE_DOWN), {});
+			_downSkin.visible=_enabled;
+			_disabledSkin.visible=!enabled;
+			_enabled ? new ExtEventDispatcher().dispatch(new ExtMouseEvent(MouseEvent.MOUSE_DOWN), {}) : null;
 		}
 
 		protected function onMouseUp(e:MouseEvent):void
 		{
 			_upSkin.visible=false;
-			_overSkin.visible=true;
+			_overSkin.visible=_enabled;
 			_downSkin.visible=false;
-			_disabledSkin.visible=false;
-			new ExtEventDispatcher().dispatch(new ExtMouseEvent(MouseEvent.MOUSE_UP), {});
+			_disabledSkin.visible=!enabled;
+			_enabled ? new ExtEventDispatcher().dispatch(new ExtMouseEvent(MouseEvent.MOUSE_UP), {}) : null;
 		}
 
 		protected function onMouseOut(e:MouseEvent):void
 		{
-			_upSkin.visible=true;
+			_upSkin.visible=_enabled;
 			_overSkin.visible=false;
 			_downSkin.visible=false;
-			_disabledSkin.visible=false;
-			new ExtEventDispatcher().dispatch(new ExtMouseEvent(MouseEvent.MOUSE_OUT), {});
+			_disabledSkin.visible=!_enabled;
+			_enabled ? new ExtEventDispatcher().dispatch(new ExtMouseEvent(MouseEvent.MOUSE_OUT), {}) : null;
 		}
 
 		protected function onMouseMove(e:MouseEvent):void
 		{
-			new ExtEventDispatcher().dispatch(new ExtMouseEvent(MouseEvent.MOUSE_MOVE), {});
+			_enabled ? new ExtEventDispatcher().dispatch(new ExtMouseEvent(MouseEvent.MOUSE_MOVE), {}) : null;
 		}
 
 		protected function onMouseWheel(e:MouseEvent):void
 		{
-			new ExtEventDispatcher().dispatch(new ExtMouseEvent(MouseEvent.MOUSE_WHEEL), {});
+			_enabled ? new ExtEventDispatcher().dispatch(new ExtMouseEvent(MouseEvent.MOUSE_WHEEL), {}) : null;
 		}
 
 		protected function onRollOver(e:MouseEvent):void
 		{
-			new ExtEventDispatcher().dispatch(new ExtMouseEvent(MouseEvent.ROLL_OVER), {});
+			_enabled ? new ExtEventDispatcher().dispatch(new ExtMouseEvent(MouseEvent.ROLL_OVER), {}) : null;
 		}
 
 		protected function onRollOut(e:MouseEvent):void
 		{
-			new ExtEventDispatcher().dispatch(new ExtMouseEvent(MouseEvent.ROLL_OUT), {});
+			_enabled ? new ExtEventDispatcher().dispatch(new ExtMouseEvent(MouseEvent.ROLL_OUT), {}) : null;
 		}
 
 		protected function onClick(e:MouseEvent):void
 		{
-			new ExtEventDispatcher().dispatch(new ExtMouseEvent(MouseEvent.CLICK), {});
+			_enabled ? new ExtEventDispatcher().dispatch(new ExtMouseEvent(MouseEvent.CLICK), {}) : null;
 		}
 
 		protected function onDoubleClick(e:MouseEvent):void
 		{
-			new ExtEventDispatcher().dispatch(new ExtMouseEvent(MouseEvent.DOUBLE_CLICK), {});
+			_enabled ? new ExtEventDispatcher().dispatch(new ExtMouseEvent(MouseEvent.DOUBLE_CLICK), {}) : null;
+		}
+
+		override public function get enabled():Boolean
+		{
+			return _enabled;
+		}
+
+		override public function set enabled(boo:Boolean):void
+		{
+			useHandCursor=buttonMode=_enabled=boo;
 		}
 	}
 }
