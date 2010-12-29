@@ -70,7 +70,7 @@ package org.feather.lib.layout
 		/**
 		 * 渲染UI
 		 */
-		override public function render(e:Event=null):void
+		override public function validateNow(e:Event=null):void
 		{
 			if (((e && e.eventPhase != 3) || !e) && this.parent)
 			{
@@ -124,7 +124,7 @@ package org.feather.lib.layout
 		public function set bgColor(c:uint):void
 		{
 			_bgColor=_style.bgColor=c;
-			optionRender();
+			update();
 		}
 
 		/**
@@ -143,7 +143,7 @@ package org.feather.lib.layout
 		public function set bgAlp(a:Number):void
 		{
 			_bgAlp=_style.bgAlp=a;
-			optionRender();
+			update();
 		}
 	}
 }

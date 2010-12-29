@@ -148,14 +148,14 @@ package org.feather.lib.layout
 		/**
 		 * 渲染UI
 		 */
-		override public function render(e:Event=null):void
+		override public function validateNow(e:Event=null):void
 		{
 			Debugger.debug("render:" + e, this);
 			if (((e && e.eventPhase != 3) || !e) && this.parent)
 			{
 				Debugger.debug("render:success", this);
 				optionTextField();
-				super.render();
+				super.validateNow(e);
 				if (!contains(_text))
 				{
 					addChild(_text);
@@ -231,7 +231,7 @@ package org.feather.lib.layout
 		public function set text(t:String):void
 		{
 			_text.text=t;
-			optionRender();
+			update();
 		}
 
 		/**
@@ -241,7 +241,7 @@ package org.feather.lib.layout
 		override public function set wsize(w:Number):void
 		{
 			_wsize=_style.wsize=w;
-			optionRender();
+			update();
 		}
 
 		/**
@@ -251,7 +251,7 @@ package org.feather.lib.layout
 		override public function set hsize(h:Number):void
 		{
 			_hsize=_style.hsize=h;
-			optionRender();
+			update();
 		}
 
 		public function get align():String
@@ -262,7 +262,7 @@ package org.feather.lib.layout
 		public function set align(str:String):void
 		{
 			_text.autoSize=_align=_style.labelAlign=str;
-			optionRender();
+			update();
 		}
 
 		public function get autoSize():Boolean
@@ -274,7 +274,7 @@ package org.feather.lib.layout
 		{
 			_autoSize=_style.LabelAutoSize=boo;
 			_text.autoSize=boo ? _align : TextFieldAutoSize.LEFT;
-			optionRender();
+			update();
 		}
 	}
 }

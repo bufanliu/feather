@@ -47,7 +47,7 @@ package org.feather.lib.controls
 			_firstRender=true;
 		}
 
-		override public function render(e:Event=null):void
+		override public function validateNow(e:Event=null):void
 		{
 			if (((e && e.eventPhase != 3) || !e) && this.parent)
 			{
@@ -82,6 +82,11 @@ package org.feather.lib.controls
 				}
 				registerButtonEvent();
 			}
+		}
+
+		protected function resize():void
+		{
+
 		}
 
 		protected function registerButtonEvent():void

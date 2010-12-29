@@ -11,7 +11,7 @@ package org.feather.lib.core
 	import org.feather.utils.display.Drawer;
 
 	/**
-	 * 显示组件基础类
+	 * 显示组件核心基类
 	 * @author Aaron Wei
 	 * @email weilong1@staff.sina.com.cn
 	 * @msn asianfalcon@msn.com
@@ -20,8 +20,10 @@ package org.feather.lib.core
 	 */
 	public class BaseUIComponent extends Sprite implements IBaseUIComponent
 	{
-		protected var _isParamNull:Boolean;
-		protected var _enabled:Boolean;
+		/**
+		 * 组件样式
+		 * @default
+		 */
 		protected var _style:Object;
 		protected var _startX:Number;
 		protected var _startY:Number;
@@ -30,10 +32,29 @@ package org.feather.lib.core
 		protected var _rw:Number;
 		protected var _rh:Number;
 		protected var _stage:Stage;
+		/**
+		 * 组件初始化参数是否为null的标识
+		 * @default
+		 */
+		protected var _isParamNull:Boolean;
+		/**
+		 * 组件是否禁用
+		 * @default
+		 */
+		protected var _enabled:Boolean;
+		/**
+		 * 是否支持实时渲染
+		 * @default
+		 */
 		protected var _isValidate:Boolean;
+		/**
+		 * 组件状态是否有改变
+		 * @default
+		 */
+		protected var _changed:Boolean;
 
 		/**
-		 * 显示组件基础类
+		 * 显示组件核心基类
 		 */
 		public function BaseUIComponent(style:Object=null):void
 		{
@@ -64,34 +85,31 @@ package org.feather.lib.core
 		}
 
 		/**
-		 * 设置组件数据信息
+		 * 初始化组件数据
 		 * @param info
 		 */
 		protected function initialize():void
 		{
-			_style.startX=_startX=(_style && (_style.startX || _style.startX === 0)) ? _style.startX : 0;
-			_style.startY=_startY=(_style && (_style.startY || _style.startY === 0)) ? _style.startY : 0;
-			_style.wsize=_wsize=(_style && (_style.wsize || _style.wsize === 0)) ? _style.wsize : LayoutConfig.DEFAULT_W;
-			_style.hsize=_hsize=(_style && (_style.hsize || _style.hsize === 0)) ? _style.hsize : LayoutConfig.DEFAULT_H;
-			_style.rw=_rw=(_style && (_style.rw || _style.rw === 0)) ? _style.rw : LayoutConfig.DEFAULT_RW;
-			_style.rh=_rh=(_style && (_style.rh || _style.rh === 0)) ? _style.rh : LayoutConfig.DEFAULT_RH;
-			_style.enabled=_enabled=(_style && _style.enabled == false) ? false : true;
-			_style.isValidate=_isValidate=_style && _style.isValidate ? _style.isValidate : false;
-			//new Option(_style).apply(this);
+			_changed=true;
+			commitProperties();
+			creatChildren();
+		}
+
+		/**
+		 * 创建组件的子组件
+		 */
+		protected function creatChildren():void
+		{
 		}
 
 		/**
 		 * 渲染UI
 		 */
-		public function render(e:Event=null):void
-		{
-		}
-
-		protected function optionRender():void
+		public function validate(e:Event=null):void
 		{
 			if (_isValidate)
 			{
-				render();
+				validate();
 			}
 			else
 			{
@@ -100,27 +118,79 @@ package org.feather.lib.core
 		}
 
 		/**
-		 *清除组件显示
+		 * 及时渲染
+		 */
+		public function validateNow(e:Event=null):void
+		{
+			invalidate();
+		}
+
+		/**
+		 * 作废渲染
 		 */
 		public function invalidate():void
 		{
 			Drawer.clear(this);
 		}
 
-		public function validate():void
+		/**
+		 * <br>This method's purpose is to commit any values typically set by using</br>
+		 * <br>a setter function. Often the commitProperties( ) method is as simple</br>
+		 * <br>as calling super.commitProperties( ) and setting the cached values</br>
+		 * <br>提交组件所有的属性变化，要么使属性同时更改，要么确保属性按照特定顺序设置</br>
+		 */
+		protected function commitProperties():void
+		{
+			if (_changed)
+			{
+				//reset to false as the value is being commited
+				_changed=false;
+				_style.startX=_startX=(_style && (_style.startX || _style.startX === 0)) ? _style.startX : 0;
+				_style.startY=_startY=(_style && (_style.startY || _style.startY === 0)) ? _style.startY : 0;
+				_style.wsize=_wsize=(_style && (_style.wsize || _style.wsize === 0)) ? _style.wsize : LayoutConfig.DEFAULT_W;
+				_style.hsize=_hsize=(_style && (_style.hsize || _style.hsize === 0)) ? _style.hsize : LayoutConfig.DEFAULT_H;
+				_style.rw=_rw=(_style && (_style.rw || _style.rw === 0)) ? _style.rw : LayoutConfig.DEFAULT_RW;
+				_style.rh=_rh=(_style && (_style.rh || _style.rh === 0)) ? _style.rh : LayoutConfig.DEFAULT_RH;
+				_style.enabled=_enabled=(_style && _style.enabled == false) ? false : true;
+				_style.isValidate=_isValidate=_style && _style.isValidate ? _style.isValidate : false;
+			}
+		}
+
+		protected function invalidateProperties():void
+		{
+
+		}
+
+		/**
+		 * <br>The purpose of this method is to perform measurement</br>
+		 * <br> calculation and define sizing information for the framework.</br>
+		 */
+		protected function measure():void
+		{
+		}
+
+		protected function invalidateSize():void
+		{
+		}
+
+		public function updateDisplayList():void
+		{
+		}
+
+		public function invalidateDisplayList():void
 		{
 		}
 
 		protected function onRender(e:Event):void
 		{
 			Debugger.debug(e, this);
-			render(e);
+			validateNow(e);
 		}
 
 		protected function onAdded(e:Event):void
 		{
 			Debugger.debug(e, this);
-			render(e);
+			validateNow(e);
 		}
 
 		protected function onAddedToStage(e:Event):void
@@ -144,7 +214,7 @@ package org.feather.lib.core
 		}
 
 		/**
-		 * render是否生效
+		 * validater是否生效
 		 * <br>true：实时渲染</br>
 		 * <br>false：定时渲染</br>
 		 * @return
@@ -156,7 +226,14 @@ package org.feather.lib.core
 
 		public function set isValidate(boo:Boolean):void
 		{
-			_style.isValidate=_isValidate=boo;
+			if (_isValidate != boo)
+			{
+				_changed=true;
+				_style.isValidate=_isValidate=boo;
+			}
+			invalidateProperties();
+			commitProperties();
+			validate();
 		}
 
 		/**
@@ -165,9 +242,18 @@ package org.feather.lib.core
 		 */
 		public function set style(info:Object):void
 		{
-			_style=info;
-			initialize();
-			optionRender();
+			for (var k:*in info)
+			{
+				if (info[k] != _style[k])
+				{
+					_changed=true;
+					_style=info;
+					invalidateProperties();
+					commitProperties();
+					validate();
+					return;
+				}
+			}
 		}
 
 		/**
@@ -184,8 +270,15 @@ package org.feather.lib.core
 		 */
 		public function move(x:Number, y:Number):void
 		{
-			this.x=x;
-			this.y=y;
+			if (!(this.x == x && this.y == y))
+			{
+				_changed=true;
+				this.x=x;
+				this.y=y;
+			}
+			invalidateProperties();
+			commitProperties();
+			validate();
 		}
 
 		/**
@@ -195,8 +288,15 @@ package org.feather.lib.core
 		 */
 		public function setSize(w:Number, h:Number):void
 		{
-			this.width=w;
-			this.height=h;
+			if (!(this.width == w && this.height == h))
+			{
+				_changed=true;
+				this.width=w;
+				this.height=h;
+			}
+			invalidateProperties();
+			commitProperties();
+			validate();
 		}
 
 		/**
@@ -206,8 +306,15 @@ package org.feather.lib.core
 		 */
 		public function setSelfSize(ws:Number, hs:Number):void
 		{
-			this.wsize=ws;
-			this.hsize=hs;
+			if (!(this.wsize == ws && this.hsize == hs))
+			{
+				_changed=true;
+				this.wsize=ws;
+				this.hsize=hs;
+			}
+			invalidateProperties();
+			commitProperties();
+			validate();
 		}
 
 		/**
@@ -243,8 +350,14 @@ package org.feather.lib.core
 		 */
 		public function set wsize(w:Number):void
 		{
-			_wsize=_style.wsize=w;
-			optionRender();
+			if (_wsize != w)
+			{
+				_changed=true;
+				_wsize=_style.wsize=w;
+			}
+			invalidateProperties();
+			commitProperties();
+			validate();
 		}
 
 		/**
@@ -262,8 +375,14 @@ package org.feather.lib.core
 		 */
 		public function set hsize(h:Number):void
 		{
-			_hsize=_style.hsize=h;
-			optionRender();
+			if (_hsize != h)
+			{
+				_changed=true;
+				_hsize=_style.hsize=h;
+			}
+			invalidateProperties();
+			commitProperties();
+			validate();
 		}
 
 		/**
@@ -281,8 +400,14 @@ package org.feather.lib.core
 		 */
 		public function set rw(r:Number):void
 		{
-			_rw=_style.rw=r;
-			optionRender();
+			if (_rw != r)
+			{
+				_changed=true;
+				_rw=_style.rw=r;
+			}
+			invalidateProperties();
+			commitProperties();
+			validate();
 		}
 
 		/**
@@ -300,8 +425,14 @@ package org.feather.lib.core
 		 */
 		public function set rh(r:Number):void
 		{
-			_rh=_style.rh=r;
-			optionRender();
+			if (_rh != r)
+			{
+				_changed=true;
+				_rh=_style.rh=r;
+			}
+			invalidateProperties();
+			commitProperties();
+			validate();
 		}
 
 		public function get enabled():Boolean
@@ -311,7 +442,19 @@ package org.feather.lib.core
 
 		public function set enabled(boo:Boolean):void
 		{
-			_enabled=boo;
+			if (_enabled != boo)
+			{
+				_changed=true;
+				_enabled=boo;
+			}
+			invalidateProperties();
+			commitProperties();
+			validate();
+		}
+
+		public function get changed():Boolean
+		{
+			return _changed;
 		}
 	}
 }

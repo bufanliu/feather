@@ -96,13 +96,13 @@ package org.feather.lib.layout
 		/**
 		 * 渲染UI
 		 */
-		override public function render(e:Event=null):void
+		override public function validateNow(e:Event=null):void
 		{
 			Debugger.debug("render:" + e, this);
 			if (((e && e.eventPhase != 3) || !e) && this.parent)
 			{
 				Debugger.debug("render:success", this);
-				super.render();
+				super.validateNow(e);
 				if (_textField)
 				{
 					_textField.autoSize=_autoSize;
@@ -152,7 +152,7 @@ package org.feather.lib.layout
 		public function set autoSize(str:String):void
 		{
 			_style.autoSize=_autoSize=str;
-			optionRender();
+			validate();
 		}
 
 		/**
@@ -171,7 +171,7 @@ package org.feather.lib.layout
 		public function set selectable(boo:Boolean):void
 		{
 			_style.selectable=_selectable=boo;
-			optionRender();
+			validate();
 		}
 
 		/**
@@ -190,7 +190,7 @@ package org.feather.lib.layout
 		public function set condenseWhite(boo:Boolean):void
 		{
 			_style.condenseWhite=_condenseWhite=boo;
-			optionRender();
+			validate();
 		}
 
 		/**
@@ -209,7 +209,7 @@ package org.feather.lib.layout
 		public function set wordWrap(boo:Boolean):void
 		{
 			_style.wordWrap=_wordWrap=boo;
-			optionRender();
+			validate();
 		}
 
 		/**
@@ -228,7 +228,7 @@ package org.feather.lib.layout
 		public function set text(t:String):void
 		{
 			_style.text=_text=t;
-			optionRender();
+			validate();
 		}
 
 		/**
@@ -247,7 +247,7 @@ package org.feather.lib.layout
 		public function set htmlText(t:String):void
 		{
 			_style.htmlText=_htmlText=t;
-			optionRender();
+			validate();
 		}
 
 		/**
@@ -257,7 +257,7 @@ package org.feather.lib.layout
 		override public function set wsize(w:Number):void
 		{
 			_wsize=_style.wsize=w;
-			optionRender();
+			validate();
 		}
 
 		/**
@@ -267,7 +267,7 @@ package org.feather.lib.layout
 		override public function set hsize(h:Number):void
 		{
 			_hsize=_style.hsize=h;
-			optionRender();
+			validate();
 		}
 	}
 }

@@ -2,6 +2,7 @@ package org.feather.lib.controls
 {
 	import flash.text.TextField;
 	import flash.text.TextFormat;
+
 	/**
 	 * 类是一个抽象类，用于向其父 BaseButton 类添加标签、图标及切换功能
 	 * @author Aaron Wei
@@ -13,7 +14,7 @@ package org.feather.lib.controls
 	public class LabelButton extends BaseButton
 	{
 		protected var _label:String;
-		
+
 		public function LabelButton(style:Object=null)
 		{
 			super(style);
@@ -22,12 +23,14 @@ package org.feather.lib.controls
 		override protected function initialize():void
 		{
 			super.initialize();
-			_label=_skin&&_skin.label?_skin.label:_defaultSkin.label;
+			_label=_skin && _skin.label ? _skin.label : _defaultSkin.label;
 		}
+
 		public function get label():String
 		{
 			return _label;
 		}
+
 		public function set label(str:String):void
 		{
 			_label=str;

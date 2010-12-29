@@ -28,22 +28,22 @@ package
 	{
 		public function Feather()
 		{
-			/*var a:Label=new Label();
-			   a.selectable=true;
-			   a.autoSize=TextFieldAutoSize.CENTER;
+			var a:Label=new Label();
+			a.selectable=true;
+			a.autoSize=TextFieldAutoSize.CENTER;
 
-			   var format:TextFormat=new TextFormat();
-			   format.font="微软雅黑";
-			   format.size=24;
-			   format.bold=true;
-			   format.color=0xFF0000;
+			var format:TextFormat=new TextFormat();
+			format.font="微软雅黑";
+			format.size=24;
+			format.bold=true;
+			format.color=0xFF0000;
 
-			   a.textField.defaultTextFormat=format;
-			   a.textField.background=true;
-			   a.textField.backgroundColor=0xFFFF00;
-			   a.text="Label";
-			   addChild(a);
-			 stage.invalidate();*/
+			a.textField.defaultTextFormat=format;
+			a.textField.background=true;
+			a.textField.backgroundColor=0xFFFF00;
+			a.text="Label";
+			addChild(a);
+			stage.invalidate();
 
 			var b:BaseButton=new BaseButton();
 			b.buttonMode=true;
@@ -67,8 +67,10 @@ package
 			addChild(d);
 			Layout.setCenterOO(d, stage);
 			d.y+=40;
-			d.width=30;
-			d.height=10;
+			d.wsize=10;
+			d.hsize=100;
+
+			var e:BaseUIComponent=new BaseUIComponent();
 
 		}
 	}

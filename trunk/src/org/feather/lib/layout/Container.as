@@ -55,12 +55,12 @@ package org.feather.lib.layout
 		/**
 		 * 渲染UI
 		 */
-		override public function render(e:Event=null):void
+		override public function validateNow(e:Event=null):void
 		{
 			if (((e && e.eventPhase != 3) || !e) && this.parent)
 			{
 				Debugger.debug("render:" + e, this);
-				super.render(e);
+				super.validateNow(e);
 				if (_border)
 				{
 					_border.style=_style;
@@ -101,7 +101,7 @@ package org.feather.lib.layout
 		public function set thickness(t:Number):void
 		{
 			_thickness=_style.thickness=t;
-			optionRender();
+			update();
 		}
 
 		/**
@@ -120,7 +120,7 @@ package org.feather.lib.layout
 		public function set borderLayout(m:String):void
 		{
 			_borderLayout=_style.borderLayout=m;
-			optionRender();
+			update();
 		}
 
 		/**
@@ -139,7 +139,7 @@ package org.feather.lib.layout
 		public function set borderColor(c:uint):void
 		{
 			_borderColor=_style.borderColor=c;
-			optionRender();
+			update();
 		}
 
 		/**
@@ -158,7 +158,7 @@ package org.feather.lib.layout
 		public function set borderAlp(a:Number):void
 		{
 			_borderAlp=_style.borderAlp=a;
-			optionRender();
+			update();
 		}
 	}
 }

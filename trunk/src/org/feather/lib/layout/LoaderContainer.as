@@ -120,9 +120,9 @@ package org.feather.lib.layout
 			}
 		}
 
-		override public function render(e:Event=null):void
+		override public function validateNow(e:Event=null):void
 		{
-			super.render(e);
+			super.validateNow(e);
 			//renderImg();
 		}
 

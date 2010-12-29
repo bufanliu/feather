@@ -15,20 +15,15 @@ package org.feather.lib.core
 	public interface IBaseUIComponent
 	{
 		/**
-		 * 获取一个值，该值指示组件是否可以接受用户交互
+		 *渲染
 		 */
-		//function get enabled():Boolean;
+		function validate(e:Event=null):void
 		/**
-		 * 获取或设置一个值，该值指示组件是否可以接受用户交互
-		 * @param boo：组件是否可以接受用户交互；
+		 *及时渲染
 		 */
-		//function set enabled(boo:Boolean):void;
+		function validateNow(e:Event=null):void
 		/**
-		 *渲染UI
-		 */
-		function render(e:Event=null):void
-		/**
-		 *废除UI
+		 *废除渲染
 		 */
 		function invalidate():void;
 		/**
@@ -36,8 +31,8 @@ package org.feather.lib.core
 		 */
 		function get style():Object;
 		function set style(info:Object):void;
-		//function getStyle():Object;
-		//function setStyle(info:Object):void;
+		function get isValidate():Boolean
+		function set isValidate(boo:Boolean):void
 		/**
 		 * 将组件移动到其父项内的指定位置
 		 */
@@ -84,12 +79,15 @@ package org.feather.lib.core
 		 */
 		function get rh():Number;
 		function set rh(h:Number):void;
-	/**
-	 *获取或设置一个布尔值，该值指示组件是否可以在用户单击它后获得焦点
-	 */
-		 //function get focusEnabled():Boolean;
-		 //function set focusEnabled(boo:Boolean):void;
-		 //function get mouseFocusEnabled():Boolean;
-		 //function set mouseFocusEnabled(boo:Boolean):void;
+		/**
+		 * 获取一个值，该值指示组件是否可以接受用户交互
+		 */
+		function get enabled():Boolean;
+		/**
+		 * 获取或设置一个值，该值指示组件是否可以接受用户交互
+		 * @param boo：组件是否可以接受用户交互；
+		 */
+		function set enabled(boo:Boolean):void;
+		function get changed():Boolean;
 	}
 }

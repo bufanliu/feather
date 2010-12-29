@@ -60,7 +60,7 @@ package org.feather.lib.controls
 			}
 		}
 
-		override public function render(e:Event=null):void
+		override public function validate(e:Event=null):void
 		{
 			if (_bgBar && !contains(_bgBar))
 			{
@@ -115,7 +115,7 @@ package org.feather.lib.controls
 			{
 				_rate=1;
 			}
-			render();
+			validate();
 		}
 
 		public function get direction():String
