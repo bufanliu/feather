@@ -36,7 +36,7 @@ package org.feather.lib.controls
 		 * 设置组件数据信息
 		 * @param info
 		 */
-		override protected function initData():void
+		override protected function initialize():void
 		{
 			_wsize=_wsize ? _wsize : 300;
 			_hsize=_hsize ? _hsize : 5;

@@ -54,9 +54,9 @@ package org.feather.lib.layout
 			super(style);
 		}
 
-		override protected function initData():void
+		override protected function initialize():void
 		{
-			super.initData();
+			super.initialize();
 			_style.bgColor=_bgColor=(_style && (_style.bgColor || _style.bgColor == 0)) ? _style.bgColor : LayoutConfig.DEFAULT_BG_COLOR;
 			_style.bgAlp=_bgAlp=(_style && (_style.bgAlp || _style.bgAlp === 0)) ? _style.bgAlp : LayoutConfig.DEFAULT_BG_ALP;
 			_style.hitRect=_hitRect=(_style && _style.hitRect) ? _style.hitRect : null;

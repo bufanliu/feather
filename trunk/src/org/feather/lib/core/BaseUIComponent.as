@@ -39,7 +39,7 @@ package org.feather.lib.core
 		{
 			_isParamNull=style ? false : true;
 			_style=style ? style : new Object();
-			initData();
+			initialize();
 			registerEvents();
 		}
 
@@ -67,7 +67,7 @@ package org.feather.lib.core
 		 * 设置组件数据信息
 		 * @param info
 		 */
-		protected function initData():void
+		protected function initialize():void
 		{
 			_style.startX=_startX=(_style && (_style.startX || _style.startX === 0)) ? _style.startX : 0;
 			_style.startY=_startY=(_style && (_style.startY || _style.startY === 0)) ? _style.startY : 0;
@@ -97,6 +97,18 @@ package org.feather.lib.core
 			{
 				return;
 			}
+		}
+
+		/**
+		 *清除组件显示
+		 */
+		public function invalidate():void
+		{
+			Drawer.clear(this);
+		}
+
+		public function validate():void
+		{
 		}
 
 		protected function onRender(e:Event):void
@@ -131,15 +143,6 @@ package org.feather.lib.core
 			Debugger.debug(e, this);
 		}
 
-
-		/**
-		 *清除组件显示
-		 */
-		public function invalidate():void
-		{
-			Drawer.clear(this);
-		}
-
 		/**
 		 * render是否生效
 		 * <br>true：实时渲染</br>
@@ -163,7 +166,7 @@ package org.feather.lib.core
 		public function set style(info:Object):void
 		{
 			_style=info;
-			initData();
+			initialize();
 			optionRender();
 		}
 

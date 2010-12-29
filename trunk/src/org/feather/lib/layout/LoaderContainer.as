@@ -39,9 +39,9 @@ package org.feather.lib.layout
 			super(style);
 		}
 
-		override protected function initData():void
+		override protected function initialize():void
 		{
-			super.initData();
+			super.initialize();
 			_style.imgX=_imgX=(_style && _style.imgX) ? _style.imgX : 0;
 			_style.imgY=_imgY=(_style && _style.imgY) ? _style.imgY : 0;
 			_style.imgW=_imgW=(_style && _style.imgW) ? _style.imgW : _wsize;

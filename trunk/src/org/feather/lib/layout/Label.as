@@ -63,9 +63,9 @@ package org.feather.lib.layout
 			super(info);
 		}
 
-		override protected function initData():void
+		override protected function initialize():void
 		{
-			super.initData();
+			super.initialize();
 			if (_isParamNull)
 			{
 				_wsize=_style.wsize=LABEL_DEFAULT_W;

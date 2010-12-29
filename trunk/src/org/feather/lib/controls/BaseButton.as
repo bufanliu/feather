@@ -35,9 +35,9 @@ package org.feather.lib.controls
 			super(style);
 		}
 
-		override protected function initData():void
+		override protected function initialize():void
 		{
-			super.initData();
+			super.initialize();
 			_style.skin=_skin=_style && _style.skin ? _style.skin : _defaultSkin;
 			_upSkin=_skin && _skin.up ? _skin.up : _defaultSkin.up;
 			_overSkin=_skin && _skin.over ? _skin.over : _defaultSkin.over;

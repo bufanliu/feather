@@ -37,9 +37,9 @@ package org.feather.lib.layout
 			super(style);
 		}
 
-		override protected function initData():void
+		override protected function initialize():void
 		{
-			super.initData();
+			super.initialize();
 			_style.borderColor=_borderColor=(_style && (_style.borderColor || _style.borderColor == 0)) ? _style.borderColor : LayoutConfig.DEFAULT_BORDER_COLOR;
 			_style.borderAlp=_borderAlp=(_style && (_style.borderAlp || _style.borderAlp === 0)) ? _style.borderAlp : LayoutConfig.DEFAULT_BORDER_ALP;
 			_style.thickness=_thickness=(_style && (_style.thickness || _style.thickness === 0)) ? _style.thickness : LayoutConfig.DEFAULT_THICKNESS;
