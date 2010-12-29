@@ -22,6 +22,15 @@ package org.feather.lib.controls
 		override protected function initData():void
 		{
 			super.initData();
+			_label=_skin&&_skin.label?_skin.label:_defaultSkin.label;
+		}
+		public function get label():String
+		{
+			return _label;
+		}
+		public function set label(str:String):void
+		{
+			_label=str;
 		}
 
 	}

@@ -40,19 +40,27 @@ package org.feather.lib.core
 			_isParamNull=style ? false : true;
 			_style=style ? style : new Object();
 			initData();
-			registerRenderEvent();
+			registerEvents();
 		}
 
-		protected function registerRenderEvent():void
+		protected function registerEvents():void
 		{
-			if (!this.hasEventListener(Event.RENDER))
-			{
-				this.addEventListener(Event.RENDER, render);
-			}
-			if (!this.hasEventListener(Event.ADDED))
-			{
-				this.addEventListener(Event.ADDED, render);
-			}
+			this.hasEventListener(Event.RENDER) ? null : this.addEventListener(Event.RENDER, onRender);
+			this.hasEventListener(Event.ADDED) ? null : this.addEventListener(Event.ADDED, onAdded);
+			this.hasEventListener(Event.ADDED_TO_STAGE) ? null : this.addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+			this.hasEventListener(Event.REMOVED) ? null : this.addEventListener(Event.REMOVED, onRemoved);
+			this.hasEventListener(Event.REMOVED_FROM_STAGE) ? null : this.addEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStage);
+			this.hasEventListener(Event.RESIZE) ? null : this.addEventListener(Event.RESIZE, onResize);
+		}
+
+		protected function removeEvents():void
+		{
+			this.hasEventListener(Event.RENDER) ? this.removeEventListener(Event.RENDER, onRender) : null;
+			this.hasEventListener(Event.ADDED) ? this.removeEventListener(Event.ADDED, onAdded) : null;
+			this.hasEventListener(Event.ADDED_TO_STAGE) ? this.removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage) : null;
+			this.hasEventListener(Event.REMOVED) ? this.removeEventListener(Event.REMOVED, onRemoved) : null;
+			this.hasEventListener(Event.REMOVED_FROM_STAGE) ? this.removeEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStage) : null;
+			this.hasEventListener(Event.RESIZE) ? this.removeEventListener(Event.RESIZE, onResize) : null;
 		}
 
 		/**
@@ -67,7 +75,7 @@ package org.feather.lib.core
 			_style.hsize=_hsize=(_style && (_style.hsize || _style.hsize === 0)) ? _style.hsize : LayoutConfig.DEFAULT_H;
 			_style.rw=_rw=(_style && (_style.rw || _style.rw === 0)) ? _style.rw : LayoutConfig.DEFAULT_RW;
 			_style.rh=_rh=(_style && (_style.rh || _style.rh === 0)) ? _style.rh : LayoutConfig.DEFAULT_RH;
-			_style.enabled=_enabled=(_style&&_style.enabled==false)?false:true;
+			_style.enabled=_enabled=(_style && _style.enabled == false) ? false : true;
 			_style.isValidate=_isValidate=_style && _style.isValidate ? _style.isValidate : false;
 			//new Option(_style).apply(this);
 		}
@@ -90,6 +98,39 @@ package org.feather.lib.core
 				return;
 			}
 		}
+
+		protected function onRender(e:Event):void
+		{
+			Debugger.debug(e, this);
+			render(e);
+		}
+
+		protected function onAdded(e:Event):void
+		{
+			Debugger.debug(e, this);
+			render(e);
+		}
+
+		protected function onAddedToStage(e:Event):void
+		{
+			Debugger.debug(e, this);
+		}
+
+		protected function onRemoved(e:Event=null):void
+		{
+			Debugger.debug(e, this);
+		}
+
+		protected function onRemovedFromStage(e:Event):void
+		{
+			Debugger.debug(e, this);
+		}
+
+		protected function onResize(e:Event):void
+		{
+			Debugger.debug(e, this);
+		}
+
 
 		/**
 		 *清除组件显示

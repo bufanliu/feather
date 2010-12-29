@@ -6,7 +6,7 @@ package
 	import flash.events.MouseEvent;
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
-	
+
 	import org.feather.lib.controls.BaseButton;
 	import org.feather.lib.controls.Button;
 	import org.feather.lib.controls.LabelButton;
@@ -31,7 +31,7 @@ package
 			/*var a:Label=new Label();
 			   a.selectable=true;
 			   a.autoSize=TextFieldAutoSize.CENTER;
-			
+
 			   var format:TextFormat=new TextFormat();
 			   format.font="微软雅黑";
 			   format.size=24;
@@ -50,21 +50,25 @@ package
 			b.useHandCursor=true;
 			b.enabled=true;
 			addChild(b);
-			Layout.setCenterOO(b,stage);
-			
+			Layout.setCenterOO(b, stage);
+
 			var c:LabelButton=new LabelButton();
 			c.buttonMode=true;
 			c.useHandCursor=true;
 			c.enabled=true;
 			addChild(c);
-			Layout.setCenterOO(b,stage);
-			
+			Layout.setCenterOO(c, stage);
+			c.y+=20;
+
 			var d:Button=new Button();
 			d.buttonMode=true;
 			d.useHandCursor=true;
 			d.enabled=true;
 			addChild(d);
-			Layout.setCenterOO(b,stage);
+			Layout.setCenterOO(d, stage);
+			d.y+=40;
+			d.width=30;
+			d.height=10;
 
 		}
 	}
