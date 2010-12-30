@@ -22,6 +22,7 @@ package
 	import org.feather.utils.data.HashSet;
 	import org.feather.utils.display.Layout;
 	import org.feather.utils.events.ExtEvent;
+	import org.feather.utils.MathUtils;
 
 	[SWF(width="400", height="300", backgroundColor="#FFFFFF", frameRate="25")]
 	public class Feather extends Sprite
@@ -71,6 +72,7 @@ package
 			d.hsize=30;
 
 			var e:BaseUIComponent=new BaseUIComponent();
+	
 
 		}
 	}
