@@ -5,7 +5,7 @@ package org.feather.lib.core
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 
-	import org.feather.utils.data.HashSetter;
+	import org.feather.utils.data.HashSet;
 
 	public class Repainter extends Object
 	{
@@ -13,8 +13,8 @@ package org.feather.lib.core
 		private var _timer:Timer;
 		private var _alwaysUseTimer:Boolean;
 		private var _renderring:Boolean;
-		private var _repaintQueue:HashSetter;
-		private var _validateQueue:HashSetter;
+		private var _repaintQueue:HashSet;
+		private var _validateQueue:HashSet;
 
 		public function Repainter(singletoner:Singletoner)
 		{
@@ -23,8 +23,8 @@ package org.feather.lib.core
 			{
 				throw new Error("只能用getInstance()来获取实例");
 			}
-			_repaintQueue=new HashSetter();
-			_validateQueue=new HashSetter();
+			_repaintQueue=new HashSet();
+			_validateQueue=new HashSet();
 			_renderring=false;
 			_alwaysUseTimer=false;
 			_timer=new Timer(19, 1);

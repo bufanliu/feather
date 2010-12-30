@@ -19,7 +19,7 @@ package
 	import org.feather.lib.layout.LoaderContainer;
 	import org.feather.lib.layout.ProSprite;
 	import org.feather.utils.Debugger;
-	import org.feather.utils.data.HashSetter;
+	import org.feather.utils.data.HashSet;
 	import org.feather.utils.display.Layout;
 	import org.feather.utils.events.ExtEvent;
 
@@ -67,8 +67,8 @@ package
 			addChild(d);
 			Layout.setCenterOO(d, stage);
 			d.y+=40;
-			d.wsize=10;
-			d.hsize=100;
+			d.wsize=100;
+			d.hsize=30;
 
 			var e:BaseUIComponent=new BaseUIComponent();
 

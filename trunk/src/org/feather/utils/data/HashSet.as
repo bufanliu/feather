@@ -2,12 +2,21 @@ package org.feather.utils.data
 {
 	import flash.utils.Dictionary;
 
-	public class HashSetter extends Object
+	/**
+	 * A collection that contains no duplicate elements. More formally,
+	 * sets contain no pair of elements e1 and e2 such that e1 === e2.
+	 * @author Aaron Wei
+	 * @email weilong1@staff.sina.com.cn
+	 * @msn asianfalcon@msn.com
+	 * @qq 120020062
+	 * @copy Copyright © 1996 - 2012 SINA Corporation, All Rights Reserved
+	 */
+	public class HashSet extends Object
 	{
 		private var _length:int;
 		private var _container:Dictionary;
 
-		public function HashSetter()
+		public function HashSet()
 		{
 			super();
 			_container=new Dictionary();
