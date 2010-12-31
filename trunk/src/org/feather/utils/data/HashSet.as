@@ -55,7 +55,6 @@ package org.feather.utils.data
 		{
 			for each (var k:*in arr)
 			{
-
 				remove(k);
 			}
 			return;

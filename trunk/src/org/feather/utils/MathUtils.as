@@ -29,7 +29,7 @@ package org.feather.utils
 			 */
 			public static function floor(value:Number):int
 			{
-				return value >> 0;
+				return value >> 0; 
 			}
 
 			/**
@@ -56,7 +56,7 @@ package org.feather.utils
 			}
 
 			/**
-			 * 快速获取输入数的绝对值（可以用来取代Math.abs方法，晕眩效率远高于Math.abs方法）
+			 * 快速获取输入数的绝对值（可以用来取代Math.abs方法，效率远高于Math.abs方法）
 			 * @param	value 一个数字，输入值
 			 * @return  一个整数值，计算得到的输入数的绝对值
 			 */
