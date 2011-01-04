@@ -9,7 +9,6 @@ package org.feather.utils
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
 
-	import org.feather.utils.geom.Drawer;
 
 	/**
 	 *  常用基础工具类

@@ -1,10 +1,10 @@
-package org.feather.utils.geom
+package org.feather.lib.geom
 {
 	import flash.display.Shape;
 	import flash.events.Event;
-	import flash.geom.Point;
 
 	import org.feather.utils.Debugger;
+	import org.feather.utils.Drawer;
 
 	/**
 	 *  矩形形状类，不提供容器和交互功能，只显示
@@ -23,7 +23,7 @@ package org.feather.utils.geom
 		protected var _color:uint;
 		protected var _alp:Number;
 
-		public function Rect(o:Point=null, w:Number=320, h:Number=240, color:uint=0xEEEEEE, alp:Number=1):void
+		public function Rect(x:Number=0, y:Number=0, w:Number=320, h:Number=240, color:uint=0xEEEEEE, alp:Number=1):void
 		{
 			initData(o, w, h, color, alp);
 			registerRenderEvent();

@@ -1,4 +1,4 @@
-package org.feather.utils.geom
+package org.feather.utils
 {
 	import flash.display.CapsStyle;
 	import flash.display.JointStyle;
@@ -8,7 +8,6 @@ package org.feather.utils.geom
 	import flash.geom.Point;
 
 	import org.feather.lib.layout.BorderFillLayout;
-	import org.feather.utils.Debugger;
 	import org.feather.config.LayoutConfig;
 
 	/**
