@@ -86,7 +86,6 @@ package
 			//c.wsize=50;
 			//c.thickness=5;
 			//stage.invalidate();
-
 		}
 	}
 }
