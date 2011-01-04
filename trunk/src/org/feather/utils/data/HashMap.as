@@ -1,6 +1,7 @@
 package org.feather.utils.data
 {
 	import flash.utils.Dictionary;
+
 	/**
 	 * To successfully store and retrieve (key->value) mapping from a HashMap.
 	 * HashMap accept any type of object to be the key: number, string, Object etc...
@@ -62,7 +63,7 @@ package org.feather.utils.data
 		 */
 		public function isEmpty():Boolean
 		{
-			return (length == 0);
+			return length == 0;
 		}
 
 		/**
@@ -206,8 +207,7 @@ package org.feather.utils.data
 			}
 			else
 			{
-				var exist:Boolean = containsKey(key);
-				if (!exist)
+				if (!containsKey(key))
 				{
 					length++;
 				}
@@ -228,8 +228,7 @@ package org.feather.utils.data
 		 */
 		public function remove(key:*):*
 		{
-			var exist:Boolean = containsKey(key);
-			if (!exist)
+			if (!containsKey(key))
 			{
 				return null;
 			}
