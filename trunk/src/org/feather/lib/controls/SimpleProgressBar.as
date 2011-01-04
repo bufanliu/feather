@@ -7,7 +7,7 @@ package org.feather.lib.controls
 	import org.feather.lib.core.BaseUIComponent;
 	import org.feather.lib.core.UIComponentStyle;
 	import org.feather.lib.layout.ProSprite;
-	import org.feather.lib.shape.Rect;
+	import org.feather.lib.geom.Rect;
 	import org.feather.utils.Debugger;
 
 	public class SimpleProgressBar extends BaseUIComponent

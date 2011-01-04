@@ -1,4 +1,4 @@
-package org.feather.lib.shape
+package org.feather.lib.geom
 {
 	import flash.display.Shape;
 	import flash.events.Event;
