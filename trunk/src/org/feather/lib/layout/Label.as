@@ -7,7 +7,7 @@ package org.feather.lib.layout
 	import org.feather.lib.core.BaseUIComponent;
 	import org.feather.lib.core.UIComponentStyle;
 	import org.feather.utils.Debugger;
-	import org.feather.utils.display.Drawer;
+	import org.feather.utils.geom.Drawer;
 
 	/**
 	 * 标签类

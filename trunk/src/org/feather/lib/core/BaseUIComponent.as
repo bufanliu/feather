@@ -8,7 +8,7 @@ package org.feather.lib.core
 	import org.feather.utils.Debugger;
 	import org.feather.utils.Tools;
 	import org.feather.utils.data.Option;
-	import org.feather.utils.display.Drawer;
+	import org.feather.utils.geom.Drawer;
 
 	/**
 	 * 显示组件核心基类

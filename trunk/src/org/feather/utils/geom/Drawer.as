@@ -1,4 +1,4 @@
-package org.feather.utils.display
+package org.feather.utils.geom
 {
 	import flash.display.CapsStyle;
 	import flash.display.JointStyle;

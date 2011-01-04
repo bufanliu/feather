@@ -6,7 +6,7 @@ package org.feather.lib.layout
 	import flash.text.TextFormat;
 	import flash.text.TextFieldAutoSize;
 
-	import org.feather.utils.display.Drawer;
+	import org.feather.utils.geom.Drawer;
 	import org.feather.config.LayoutConfig;
 	import org.feather.utils.Debugger;
 	import org.feather.lib.core.UIComponentStyle;

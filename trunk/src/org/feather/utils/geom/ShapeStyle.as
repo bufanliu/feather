@@ -1,4 +1,4 @@
-package org.feather.lib.geom
+package org.feather.utils.geom
 {
 	import flash.geom.Point;
 	public class ShapeStyle

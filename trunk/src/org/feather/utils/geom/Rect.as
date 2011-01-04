@@ -1,11 +1,10 @@
-package org.feather.lib.geom
+package org.feather.utils.geom
 {
 	import flash.display.Shape;
 	import flash.events.Event;
 	import flash.geom.Point;
 
 	import org.feather.utils.Debugger;
-	import org.feather.utils.display.Drawer;
 
 	/**
 	 *  矩形形状类，不提供容器和交互功能，只显示
