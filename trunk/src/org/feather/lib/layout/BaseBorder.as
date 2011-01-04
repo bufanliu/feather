@@ -36,9 +36,9 @@ package org.feather.lib.layout
 			super(style);
 		}
 
-		override protected function initialize():void
+		override protected function commitProperties():void
 		{
-			super.initialize();
+			super.commitProperties();
 			_style.borderColor=_borderColor=(_style && (_style.borderColor || _style.borderColor == 0)) ? _style.borderColor : LayoutConfig.DEFAULT_BORDER_COLOR;
 			_style.borderAlp=_borderAlp=(_style && (_style.borderAlp || _style.borderAlp === 0)) ? _style.borderAlp : LayoutConfig.DEFAULT_BORDER_ALP;
 			_style.thickness=_thickness=(_style && (_style.thickness || _style.thickness === 0)) ? _style.thickness : LayoutConfig.DEFAULT_THICKNESS;
@@ -57,8 +57,8 @@ package org.feather.lib.layout
 		{
 			if (((e && e.eventPhase != 3) || !e) && this.parent)
 			{
+				super.validateNow();
 				Debugger.debug("render:" + e, this);
-				Drawer.clear(this);
 				Drawer.drawRectBorder(this, _startX, _startY, _wsize, _hsize, _borderColor, _borderAlp, _thickness, _rw, _rh, _layout, _pixelHinting, _scaleMode, _caps, _joints, _miterLimit);
 			}
 		}
@@ -78,8 +78,12 @@ package org.feather.lib.layout
 		 */
 		public function set thickness(t:Number):void
 		{
-			_thickness=_style.thickness=t;
-			update();
+			if (_thickness != t)
+			{
+				_changed=true;
+				_thickness=_style.thickness=t;
+			}
+			validate();
 		}
 
 		/**
@@ -97,8 +101,12 @@ package org.feather.lib.layout
 		 */
 		public function set layout(m:String):void
 		{
-			_layout=_style.borderLayout=m;
-			update();
+			if (_layout != m)
+			{
+				_changed=true;
+				_layout=_style.borderLayout=m;
+			}
+			validate();
 		}
 
 		/**
@@ -116,8 +124,12 @@ package org.feather.lib.layout
 		 */
 		public function set borderColor(c:uint):void
 		{
-			_borderColor=_style.borderColor=c;
-			update();
+			if (_borderColor != c)
+			{
+				_changed=true;
+				_borderColor=_style.borderColor=c;
+			}
+			validate();
 		}
 
 		/**
@@ -135,8 +147,12 @@ package org.feather.lib.layout
 		 */
 		public function set borderAlp(a:Number):void
 		{
-			_borderAlp=_style.borderAlp=a;
-			update();
+			if (_borderAlp != a)
+			{
+				_changed=true;
+				_borderAlp=_style.borderAlp=a;
+			}
+			validate();
 		}
 	}
 }

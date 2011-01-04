@@ -37,9 +37,9 @@ package org.feather.lib.layout
 			super(style);
 		}
 
-		override protected function initialize():void
+		override protected function commitProperties():void
 		{
-			super.initialize();
+			super.commitProperties();
 			_style.borderColor=_borderColor=(_style && (_style.borderColor || _style.borderColor == 0)) ? _style.borderColor : LayoutConfig.DEFAULT_BORDER_COLOR;
 			_style.borderAlp=_borderAlp=(_style && (_style.borderAlp || _style.borderAlp === 0)) ? _style.borderAlp : LayoutConfig.DEFAULT_BORDER_ALP;
 			_style.thickness=_thickness=(_style && (_style.thickness || _style.thickness === 0)) ? _style.thickness : LayoutConfig.DEFAULT_THICKNESS;
@@ -49,7 +49,12 @@ package org.feather.lib.layout
 			_style.caps=_caps=(_style && _style.caps) ? _style.caps : LayoutConfig.DEFAULT_CAPS;
 			_style.joints=_joints=(_style && _style.joints) ? _style.joints : LayoutConfig.DEFAULT_JOINTS;
 			_style.miterLimit=_miterLimit=(_style && _style.miterLimit) ? _style.miterLimit : LayoutConfig.DEFAULT_MITERLIMIT;
-			_border=new BaseBorder(_style);
+		}
+
+		override protected function creatChildren():void
+		{
+			super.creatChildren();
+			_border=_border ? _border : new BaseBorder(_style);
 		}
 
 		/**
@@ -63,15 +68,8 @@ package org.feather.lib.layout
 				super.validateNow(e);
 				if (_border)
 				{
+					contains(_border) ? null : addChild(_border);
 					_border.style=_style;
-				}
-				else
-				{
-					_border=new BaseBorder(_style);
-				}
-				if (!contains(_border))
-				{
-					addChild(_border);
 				}
 			}
 		}
@@ -100,8 +98,12 @@ package org.feather.lib.layout
 		 */
 		public function set thickness(t:Number):void
 		{
-			_thickness=_style.thickness=t;
-			update();
+			if (_thickness != t)
+			{
+				_changed=true;
+				_thickness=_style.thickness=t;
+			}
+			validate();
 		}
 
 		/**
@@ -119,8 +121,12 @@ package org.feather.lib.layout
 		 */
 		public function set borderLayout(m:String):void
 		{
-			_borderLayout=_style.borderLayout=m;
-			update();
+			if (_borderLayout != m)
+			{
+				_changed=true;
+				_borderLayout=_style.borderLayout=m;
+			}
+			validate();
 		}
 
 		/**
@@ -138,8 +144,12 @@ package org.feather.lib.layout
 		 */
 		public function set borderColor(c:uint):void
 		{
-			_borderColor=_style.borderColor=c;
-			update();
+			if (_borderColor != c)
+			{
+				_changed=true;
+				_borderColor=_style.borderColor=c;
+			}
+			validate();
 		}
 
 		/**
@@ -157,8 +167,12 @@ package org.feather.lib.layout
 		 */
 		public function set borderAlp(a:Number):void
 		{
-			_borderAlp=_style.borderAlp=a;
-			update();
+			if (_borderAlp != a)
+			{
+				_changed=true;
+				_borderAlp=_style.borderAlp=a;
+			}
+			validate();
 		}
 	}
 }

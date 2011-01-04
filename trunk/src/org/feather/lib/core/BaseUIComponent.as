@@ -90,9 +90,26 @@ package org.feather.lib.core
 		 */
 		protected function initialize():void
 		{
-			_changed=true;
 			commitProperties();
 			creatChildren();
+		}
+
+		/**
+		 * <br>This method's purpose is to commit any values typically set by using</br>
+		 * <br>a setter function. Often the commitProperties( ) method is as simple</br>
+		 * <br>as calling super.commitProperties( ) and setting the cached values</br>
+		 * <br>提交组件所有的属性变化，要么使属性同时更改，要么确保属性按照特定顺序设置</br>
+		 */
+		protected function commitProperties():void
+		{
+			_style.startX=_startX=(_style && (_style.startX || _style.startX === 0)) ? _style.startX : 0;
+			_style.startY=_startY=(_style && (_style.startY || _style.startY === 0)) ? _style.startY : 0;
+			_style.wsize=_wsize=(_style && (_style.wsize || _style.wsize === 0)) ? _style.wsize : LayoutConfig.DEFAULT_W;
+			_style.hsize=_hsize=(_style && (_style.hsize || _style.hsize === 0)) ? _style.hsize : LayoutConfig.DEFAULT_H;
+			_style.rw=_rw=(_style && (_style.rw || _style.rw === 0)) ? _style.rw : LayoutConfig.DEFAULT_RW;
+			_style.rh=_rh=(_style && (_style.rh || _style.rh === 0)) ? _style.rh : LayoutConfig.DEFAULT_RH;
+			_style.enabled=_enabled=(_style && _style.enabled == false) ? false : true;
+			_style.isValidate=_isValidate=_style && _style.isValidate ? _style.isValidate : true;
 		}
 
 		/**
@@ -107,9 +124,10 @@ package org.feather.lib.core
 		 */
 		public function validate(e:Event=null):void
 		{
-			if (_isValidate)
+			if (_isValidate && _changed)
 			{
-				validate();
+				_changed=false;
+				validateNow();
 			}
 			else
 			{
@@ -131,29 +149,6 @@ package org.feather.lib.core
 		public function invalidate():void
 		{
 			Drawer.clear(this);
-		}
-
-		/**
-		 * <br>This method's purpose is to commit any values typically set by using</br>
-		 * <br>a setter function. Often the commitProperties( ) method is as simple</br>
-		 * <br>as calling super.commitProperties( ) and setting the cached values</br>
-		 * <br>提交组件所有的属性变化，要么使属性同时更改，要么确保属性按照特定顺序设置</br>
-		 */
-		protected function commitProperties():void
-		{
-			if (_changed)
-			{
-				//reset to false as the value is being commited
-				_changed=false;
-				_style.startX=_startX=(_style && (_style.startX || _style.startX === 0)) ? _style.startX : 0;
-				_style.startY=_startY=(_style && (_style.startY || _style.startY === 0)) ? _style.startY : 0;
-				_style.wsize=_wsize=(_style && (_style.wsize || _style.wsize === 0)) ? _style.wsize : LayoutConfig.DEFAULT_W;
-				_style.hsize=_hsize=(_style && (_style.hsize || _style.hsize === 0)) ? _style.hsize : LayoutConfig.DEFAULT_H;
-				_style.rw=_rw=(_style && (_style.rw || _style.rw === 0)) ? _style.rw : LayoutConfig.DEFAULT_RW;
-				_style.rh=_rh=(_style && (_style.rh || _style.rh === 0)) ? _style.rh : LayoutConfig.DEFAULT_RH;
-				_style.enabled=_enabled=(_style && _style.enabled == false) ? false : true;
-				_style.isValidate=_isValidate=_style && _style.isValidate ? _style.isValidate : false;
-			}
 		}
 
 		protected function invalidateProperties():void
@@ -231,8 +226,6 @@ package org.feather.lib.core
 				_changed=true;
 				_style.isValidate=_isValidate=boo;
 			}
-			invalidateProperties();
-			commitProperties();
 			validate();
 		}
 
@@ -242,18 +235,10 @@ package org.feather.lib.core
 		 */
 		public function set style(info:Object):void
 		{
-			for (var k:*in info)
-			{
-				if (info[k] != _style[k])
-				{
-					_changed=true;
-					_style=info;
-					invalidateProperties();
-					commitProperties();
-					validate();
-					return;
-				}
-			}
+			_changed=true;
+			_style=info;
+			commitProperties();
+			validate();
 		}
 
 		/**
@@ -276,8 +261,6 @@ package org.feather.lib.core
 				this.x=x;
 				this.y=y;
 			}
-			invalidateProperties();
-			commitProperties();
 			validate();
 		}
 
@@ -294,8 +277,6 @@ package org.feather.lib.core
 				this.width=w;
 				this.height=h;
 			}
-			invalidateProperties();
-			commitProperties();
 			validate();
 		}
 
@@ -312,8 +293,6 @@ package org.feather.lib.core
 				this.wsize=ws;
 				this.hsize=hs;
 			}
-			invalidateProperties();
-			commitProperties();
 			validate();
 		}
 
@@ -355,8 +334,6 @@ package org.feather.lib.core
 				_changed=true;
 				_wsize=_style.wsize=w;
 			}
-			invalidateProperties();
-			commitProperties();
 			validate();
 		}
 
@@ -380,8 +357,6 @@ package org.feather.lib.core
 				_changed=true;
 				_hsize=_style.hsize=h;
 			}
-			invalidateProperties();
-			commitProperties();
 			validate();
 		}
 
@@ -405,8 +380,6 @@ package org.feather.lib.core
 				_changed=true;
 				_rw=_style.rw=r;
 			}
-			invalidateProperties();
-			commitProperties();
 			validate();
 		}
 
@@ -430,8 +403,6 @@ package org.feather.lib.core
 				_changed=true;
 				_rh=_style.rh=r;
 			}
-			invalidateProperties();
-			commitProperties();
 			validate();
 		}
 
@@ -447,8 +418,6 @@ package org.feather.lib.core
 				_changed=true;
 				_enabled=boo;
 			}
-			invalidateProperties();
-			commitProperties();
 			validate();
 		}
 

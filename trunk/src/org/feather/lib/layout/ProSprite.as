@@ -54,9 +54,23 @@ package org.feather.lib.layout
 			super(style);
 		}
 
-		override protected function initialize():void
+		/**
+		 * 渲染UI
+		 */
+		override public function validateNow(e:Event=null):void
 		{
-			super.initialize();
+			if (((e && e.eventPhase != 3) || !e) && this.parent)
+			{
+				super.validateNow();
+				Debugger.debug("render:" + e, this);
+				Drawer.drawRectArea(this, _startX, _startY, _wsize, _hsize, _bgColor, _bgAlp, _rw, _rh);
+				initReaction();
+			}
+		}
+
+		override protected function commitProperties():void
+		{
+			super.commitProperties();
 			_style.bgColor=_bgColor=(_style && (_style.bgColor || _style.bgColor == 0)) ? _style.bgColor : LayoutConfig.DEFAULT_BG_COLOR;
 			_style.bgAlp=_bgAlp=(_style && (_style.bgAlp || _style.bgAlp === 0)) ? _style.bgAlp : LayoutConfig.DEFAULT_BG_ALP;
 			_style.hitRect=_hitRect=(_style && _style.hitRect) ? _style.hitRect : null;
@@ -65,20 +79,6 @@ package org.feather.lib.layout
 			_bottom=(_padding && _padding.bottom) ? _padding.bottom : 0;
 			_left=(_padding && _padding.left) ? _padding.left : 0;
 			_right=(_padding && _padding.right) ? _padding.right : 0;
-		}
-
-		/**
-		 * 渲染UI
-		 */
-		override public function validateNow(e:Event=null):void
-		{
-			if (((e && e.eventPhase != 3) || !e) && this.parent)
-			{
-				Debugger.debug("render:" + e, this);
-				Drawer.clear(this);
-				Drawer.drawRectArea(this, _startX, _startY, _wsize, _hsize, _bgColor, _bgAlp, _rw, _rh);
-				initReaction();
-			}
 		}
 
 		private function initReaction():void
@@ -123,8 +123,12 @@ package org.feather.lib.layout
 		 */
 		public function set bgColor(c:uint):void
 		{
-			_bgColor=_style.bgColor=c;
-			update();
+			if (_bgColor != c)
+			{
+				_changed=true;
+				_bgColor=_style.bgColor=c;
+			}
+			validate();
 		}
 
 		/**
@@ -142,8 +146,12 @@ package org.feather.lib.layout
 		 */
 		public function set bgAlp(a:Number):void
 		{
-			_bgAlp=_style.bgAlp=a;
-			update();
+			if (_bgAlp != a)
+			{
+				_changed=false;
+				_bgAlp=_style.bgAlp=a;
+			}
+			validate();
 		}
 	}
 }
