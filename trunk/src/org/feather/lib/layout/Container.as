@@ -54,7 +54,7 @@ package org.feather.lib.layout
 		override protected function creatChildren():void
 		{
 			super.creatChildren();
-			_border=_border ? _border : new BaseBorder(_style);
+			_border=_border || new BaseBorder(_style);
 		}
 
 		/**

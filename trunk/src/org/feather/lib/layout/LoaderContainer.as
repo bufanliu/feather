@@ -39,9 +39,9 @@ package org.feather.lib.layout
 			super(style);
 		}
 
-		override protected function initialize():void
+		override protected function commitProperties():void
 		{
-			super.initialize();
+			super.commitProperties();
 			_style.imgX=_imgX=(_style && _style.imgX) ? _style.imgX : 0;
 			_style.imgY=_imgY=(_style && _style.imgY) ? _style.imgY : 0;
 			_style.imgW=_imgW=(_style && _style.imgW) ? _style.imgW : _wsize;
@@ -49,6 +49,12 @@ package org.feather.lib.layout
 			_style.imgAlp=_imgAlp=(_style && _style.imgAlp) ? _style.imgAlp : 1;
 			_style.imgScale=_imgScale=(_style && _style.imgScale) ? _style.imgScale : null;
 			_style.imgAlign=_imgAlign=(_style && _style.imgAlign) ? _style.imgAlign : null;
+		}
+
+		override protected function creatChildren():void
+		{
+			super.creatChildren();
+			_loader=_loader || new ProLoader();
 		}
 
 		/**
@@ -128,96 +134,102 @@ package org.feather.lib.layout
 
 		protected function renderImg():void
 		{
-			addChild(_img);
-			//模式优先级高于设置优先级
-			switch (_imgScale)
+			if (_img)
 			{
-				case null:
-					_img.width=_imgW;
-					_img.height=_imgH;
-					break;
-				case "scale":
-					Layout.prorataOV(_img, _wsize, _hsize);
-					_imgW=_img.width;
-					_imgH=_img.height;
-					break;
-				case "fit":
-					_imgW=_img.width=_wsize;
-					_imgH=_img.height=_hsize;
-					break;
-				case "noScale":
-					_imgW=_img.width;
-					_imgH=_img.height;
-					break;
-				case "tile":
-					_imgW=_img.width;
-					_imgH=_img.height;
-					break;
-			}
-			switch (_imgAlign)
-			{
-				case null:
-					_img.x=_imgX;
-					_img.y=_imgY;
-					break;
-				case "center":
-					Layout.setCenterOV(_img, _wsize, _hsize);
-					_imgX=_img.x;
-					_imgY=_img.y;
-					break;
-				case "top":
-					Layout.setTopOV(_img, _wsize, _hsize);
-					_imgX=_img.x;
-					_imgY=_img.y;
-					break;
-				case "bottom":
-					Layout.setBottomOV(_img, _wsize, _hsize);
-					_imgX=_img.x;
-					_imgY=_img.y;
-					break;
-				case "left":
-					Layout.setLeftOV(_img, _wsize, _hsize);
-					_imgX=_img.x;
-					_imgY=_img.y;
-					break;
-				case "right":
-					Layout.setRightOV(_img, _wsize, _hsize);
-					_imgX=_img.x;
-					_imgY=_img.y;
-					break;
-				case "leftTop":
-					Layout.setLeftTopOV(_img, _wsize, _hsize);
-					_imgX=_img.x;
-					_imgY=_img.y;
-					break;
-				case "leftBottom":
-					Layout.setLeftBottomOV(_img, _wsize, _hsize);
-					_imgX=_img.x;
-					_imgY=_img.y;
-					break;
-				case "rightTop":
-					Layout.setRightTopOV(_img, _wsize, _hsize);
-					_imgX=_img.x;
-					_imgY=_img.y;
-					break;
-				case "rightBottom":
-					Layout.setRightBottomOV(_img, _wsize, _hsize);
-					_imgX=_img.x;
-					_imgY=_img.y;
-					break;
+				addChild(_img);
+				//模式优先级高于设置优先级
+				switch (_imgScale)
+				{
+					case null:
+						_img.width=_imgW;
+						_img.height=_imgH;
+						break;
+					case "scale":
+						Layout.prorataOV(_img, _wsize, _hsize);
+						_imgW=_img.width;
+						_imgH=_img.height;
+						break;
+					case "fit":
+						_imgW=_img.width=_wsize;
+						_imgH=_img.height=_hsize;
+						break;
+					case "noScale":
+						_imgW=_img.width;
+						_imgH=_img.height;
+						break;
+					case "tile":
+						_imgW=_img.width;
+						_imgH=_img.height;
+						break;
+				}
+				switch (_imgAlign)
+				{
+					case null:
+						_img.x=_imgX;
+						_img.y=_imgY;
+						break;
+					case "center":
+						Layout.setCenterOV(_img, _wsize, _hsize);
+						_imgX=_img.x;
+						_imgY=_img.y;
+						break;
+					case "top":
+						Layout.setTopOV(_img, _wsize, _hsize);
+						_imgX=_img.x;
+						_imgY=_img.y;
+						break;
+					case "bottom":
+						Layout.setBottomOV(_img, _wsize, _hsize);
+						_imgX=_img.x;
+						_imgY=_img.y;
+						break;
+					case "left":
+						Layout.setLeftOV(_img, _wsize, _hsize);
+						_imgX=_img.x;
+						_imgY=_img.y;
+						break;
+					case "right":
+						Layout.setRightOV(_img, _wsize, _hsize);
+						_imgX=_img.x;
+						_imgY=_img.y;
+						break;
+					case "leftTop":
+						Layout.setLeftTopOV(_img, _wsize, _hsize);
+						_imgX=_img.x;
+						_imgY=_img.y;
+						break;
+					case "leftBottom":
+						Layout.setLeftBottomOV(_img, _wsize, _hsize);
+						_imgX=_img.x;
+						_imgY=_img.y;
+						break;
+					case "rightTop":
+						Layout.setRightTopOV(_img, _wsize, _hsize);
+						_imgX=_img.x;
+						_imgY=_img.y;
+						break;
+					case "rightBottom":
+						Layout.setRightBottomOV(_img, _wsize, _hsize);
+						_imgX=_img.x;
+						_imgY=_img.y;
+						break;
+				}
 			}
 		}
 
 		public function moveImg(x:Number, y:Number):void
 		{
-			if (!_imgAlign)
+			if (_img)
 			{
-				this.imgX=x;
-				this.imgY=y;
-			}
-			else
-			{
-				throw new Error(getQualifiedClassName(this) + "   moveImg:当前为" + _imgAlign + "对齐模式，无法自定义坐标！");
+				if (!_imgAlign)
+				{
+					this.imgX=x;
+					this.imgY=y;
+				}
+				else
+				{
+					throw new Error(getQualifiedClassName(this) + "   moveImg:当前为" + _imgAlign + "对齐模式，无法自定义坐标！");
+				}
 			}
 		}
 

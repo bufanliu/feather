@@ -235,10 +235,9 @@ package org.feather.lib.core
 		 */
 		public function set style(info:Object):void
 		{
-			_changed=true;
 			_style=info;
 			commitProperties();
-			validate();
+			validateNow();
 		}
 
 		/**

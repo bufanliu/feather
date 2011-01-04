@@ -63,9 +63,9 @@ package org.feather.lib.layout
 			super(info);
 		}
 
-		override protected function initialize():void
+		override protected function commitProperties():void
 		{
-			super.initialize();
+			super.commitProperties();
 			if (_isParamNull)
 			{
 				_wsize=_style.wsize=LABEL_DEFAULT_W;
@@ -90,6 +90,11 @@ package org.feather.lib.layout
 					_text="Label";
 				}
 			}
+		}
+
+		override protected function creatChildren():void
+		{
+			super.creatChildren();
 			_textField=_textField || new TextField();
 		}
 
