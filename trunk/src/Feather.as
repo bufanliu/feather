@@ -6,7 +6,7 @@ package
 	import flash.events.MouseEvent;
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
-	
+
 	import org.feather.lib.controls.BaseButton;
 	import org.feather.lib.controls.Button;
 	import org.feather.lib.controls.LabelButton;
@@ -23,7 +23,7 @@ package
 	import org.feather.utils.data.HashSet;
 	import org.feather.utils.display.Layout;
 	import org.feather.utils.events.ExtEvent;
-	
+
 	[SWF(width="400", height="300", backgroundColor="#FFFFFF", frameRate="25")]
 	public class Feather extends Sprite
 	{
@@ -32,27 +32,27 @@ package
 			var a:Label=new Label();
 			a.selectable=true;
 			a.autoSize=TextFieldAutoSize.CENTER;
-			
+
 			var format:TextFormat=new TextFormat();
 			format.font="微软雅黑";
 			format.size=24;
 			format.bold=true;
 			format.color=0xFF0000;
-			
+
 			a.textField.defaultTextFormat=format;
 			a.textField.background=true;
 			a.textField.backgroundColor=0xFFFF00;
 			a.text="Label";
 			addChild(a);
 			stage.invalidate();
-			
+
 			var b:BaseButton=new BaseButton();
 			b.buttonMode=true;
 			b.useHandCursor=true;
 			b.enabled=true;
 			addChild(b);
 			Layout.setCenterOO(b, stage);
-			
+
 			var c:LabelButton=new LabelButton();
 			c.buttonMode=true;
 			c.useHandCursor=true;
@@ -60,7 +60,7 @@ package
 			addChild(c);
 			Layout.setCenterOO(c, stage);
 			c.y+=20;
-			
+
 			var d:Button=new Button();
 			d.buttonMode=true;
 			d.useHandCursor=true;
@@ -70,13 +70,13 @@ package
 			d.y+=40;
 			d.wsize=100;
 			d.hsize=30;
-			
+
 			//var spr:Container=new Container();
 			//addChild(spr);
 			//spr.wsize=30;
 			//spr.bgColor=0xFF0000;
 			//stage.invalidate();
-			
+
 			var cc:Container=new Container();
 			addChild(cc);
 			cc.wsize=50;
@@ -86,9 +86,9 @@ package
 			//c.wsize=50;
 			//c.thickness=5;
 			//stage.invalidate();
-			
-			
-			
+
+
+
 		}
 	}
 }
