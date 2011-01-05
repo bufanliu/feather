@@ -15,9 +15,19 @@ package org.feather.lib.controls
 			super.initialize();
 		}
 
-		override public function validate(e:Event=null):void
+		override protected function commitProperties():void
 		{
-			super.validateNow(e);
+			_style.wsize=_wsize=(_style && (_style.wsize || _style.wsize === 0)) ? _style.wsize : 80;
+			_style.hsize=_hsize=(_style && (_style.hsize || _style.hsize === 0)) ? _style.hsize : 30;
+			super.commitProperties();
+		}
+
+		/**
+		 *渲染、绘制
+		 */
+		override protected function draw(e:Event=null):void
+		{
+			super.draw();
 			_upSkin.width=_overSkin.width=_downSkin.width=_disabledSkin.width=_reactionArea.width=_wsize;
 			_upSkin.height=_overSkin.height=_downSkin.height=_disabledSkin.height=_reactionArea.height=_hsize;
 		}

@@ -20,10 +20,15 @@ package org.feather.lib.controls
 			super(style);
 		}
 
-		override protected function initialize():void
+		override protected function commitProperties():void
 		{
-			super.initialize();
+			super.commitProperties();
 			_label=_skin && _skin.label ? _skin.label : _defaultSkin.label;
+		}
+
+		override protected function creatChildren():void
+		{
+			super.creatChildren();
 		}
 
 		public function get label():String

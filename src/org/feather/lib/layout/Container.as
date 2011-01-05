@@ -20,12 +20,12 @@ package org.feather.lib.layout
 
 	public class Container extends ProSprite
 	{
+		/** 样式属性*/
 		protected var _border:BaseBorder;
 		protected var _borderColor:uint;
 		protected var _borderAlp:Number;
 		protected var _thickness:Number
 		protected var _borderLayout:String;
-
 		protected var _pixelHinting:Boolean;
 		protected var _scaleMode:String;
 		protected var _caps:String;
@@ -55,23 +55,32 @@ package org.feather.lib.layout
 		{
 			super.creatChildren();
 			_border=_border || new BaseBorder(_style);
+			_children.push(_border);
 		}
 
 		/**
-		 * 渲染UI
+		 *渲染、绘制
 		 */
-		override public function validateNow(e:Event=null):void
+		override protected function draw(e:Event=null):void
 		{
 			if (((e && e.eventPhase != 3) || !e) && this.parent)
 			{
-				Debugger.debug("render:" + e, this);
-				super.validateNow(e);
+				super.draw(e);
+				Debugger.debug("validateNow:" + e, this);
 				if (_border)
 				{
-					contains(_border) ? null : addChild(_border);
+					contains(_border) ? null : (addChild(_border), _displayListHash.add(_border));
 					_border.style=_style;
 				}
 			}
+		}
+
+		/**
+		 * 子对象在组件内部的布局
+		 */
+		override protected function layout():void
+		{
+			_border && contains(_border) ? (_border.x=0, border.y=0) : null;
 		}
 
 		/**
