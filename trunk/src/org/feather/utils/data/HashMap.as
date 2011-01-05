@@ -71,8 +71,8 @@ package org.feather.utils.data
 		 */
 		public function keys():Array
 		{
-			var temp:Array = new Array(length);
-			var index:int = 0;
+			var temp:Array=new Array(length);
+			var index:int=0;
 			for (var i:*in content)
 			{
 				temp[index]=i;
@@ -110,8 +110,8 @@ package org.feather.utils.data
 		 */
 		public function values():Array
 		{
-			var temp:Array = new Array(length);
-			var index:int = 0;
+			var temp:Array=new Array(length);
+			var index:int=0;
 			for each (var i:*in content)
 			{
 				temp[index]=i;
@@ -144,11 +144,7 @@ package org.feather.utils.data
 		 */
 		public function containsKey(key:*):Boolean
 		{
-			if (content[key] != undefined)
-			{
-				return true;
-			}
-			return false;
+			return (content[key] !== undefined);
 		}
 
 		/**
@@ -162,7 +158,7 @@ package org.feather.utils.data
 		 */
 		public function get(key:*):*
 		{
-			var value:* = content[key];
+			var value:*=content[key];
 			if (value !== undefined)
 			{
 				return value;
@@ -211,7 +207,7 @@ package org.feather.utils.data
 				{
 					length++;
 				}
-				var oldValue:* = this.get(key);
+				var oldValue:*=this.get(key);
 				content[key]=value;
 				return oldValue;
 			}
@@ -232,7 +228,7 @@ package org.feather.utils.data
 			{
 				return null;
 			}
-			var temp:* = content[key];
+			var temp:*=content[key];
 			delete content[key];
 			length--;
 			return temp;
@@ -252,7 +248,7 @@ package org.feather.utils.data
 		 */
 		public function clone():HashMap
 		{
-			var temp:HashMap = new HashMap();
+			var temp:HashMap=new HashMap();
 			for (var i:*in content)
 			{
 				temp.put(i, content[i]);
@@ -262,9 +258,9 @@ package org.feather.utils.data
 
 		public function toString():String
 		{
-			var ks:Array = keys();
-			var vs:Array = values();
-			var temp:String = "HashMap Content:\n";
+			var ks:Array=keys();
+			var vs:Array=values();
+			var temp:String="HashMap Content:\n";
 			for (var i:int=0; i < ks.length; i++)
 			{
 				temp+=ks[i] + " -> " + vs[i] + "\n";

@@ -6,9 +6,10 @@ package org.feather.lib.core
 
 	import org.feather.config.LayoutConfig;
 	import org.feather.utils.Debugger;
-	import org.feather.utils.Tools;
-	import org.feather.utils.data.Option;
 	import org.feather.utils.Drawer;
+	import org.feather.utils.Tools;
+	import org.feather.utils.data.HashSet;
+	import org.feather.utils.data.Option;
 
 	/**
 	 * 显示组件核心基类
@@ -20,11 +21,13 @@ package org.feather.lib.core
 	 */
 	public class BaseUIComponent extends Sprite implements IBaseUIComponent
 	{
-		/**
-		 * 组件样式
-		 * @default
-		 */
+		/** 属性对象*/
 		protected var _style:Object;
+		/**组件内部子集*/
+		protected var _children:Array;
+		/**组件内部位于显示列表的子集*/
+		protected var _displayListHash:HashSet;
+		/**样式属性*/
 		protected var _startX:Number;
 		protected var _startY:Number;
 		protected var _wsize:Number;
@@ -32,56 +35,25 @@ package org.feather.lib.core
 		protected var _rw:Number;
 		protected var _rh:Number;
 		protected var _stage:Stage;
-		/**
-		 * 组件初始化参数是否为null的标识
-		 * @default
-		 */
+		/** 组件初始化参数是否为null的标识*/
 		protected var _isParamNull:Boolean;
-		/**
-		 * 组件是否禁用
-		 * @default
-		 */
+		/**组件是否禁用*/
 		protected var _enabled:Boolean;
-		/**
-		 * 是否支持实时渲染
-		 * @default
-		 */
+		/**是否支持实时渲染*/
 		protected var _isValidate:Boolean;
-		/**
-		 * 组件状态是否有改变
-		 * @default
-		 */
+		/**组件状态是否有改变*/
 		protected var _changed:Boolean;
 
-		/**
-		 * 显示组件核心基类
-		 */
+		/**显示组件核心基类*/
 		public function BaseUIComponent(style:Object=null):void
 		{
+			super();
+			_changed=true;
 			_isParamNull=style ? false : true;
-			_style=style ? style : new Object();
+			_style=style || new Object();
+			_children=new Array();
+			_displayListHash=new HashSet();
 			initialize();
-			registerEvents();
-		}
-
-		protected function registerEvents():void
-		{
-			this.hasEventListener(Event.RENDER) ? null : this.addEventListener(Event.RENDER, onRender);
-			this.hasEventListener(Event.ADDED) ? null : this.addEventListener(Event.ADDED, onAdded);
-			this.hasEventListener(Event.ADDED_TO_STAGE) ? null : this.addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
-			this.hasEventListener(Event.REMOVED) ? null : this.addEventListener(Event.REMOVED, onRemoved);
-			this.hasEventListener(Event.REMOVED_FROM_STAGE) ? null : this.addEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStage);
-			this.hasEventListener(Event.RESIZE) ? null : this.addEventListener(Event.RESIZE, onResize);
-		}
-
-		protected function removeEvents():void
-		{
-			this.hasEventListener(Event.RENDER) ? this.removeEventListener(Event.RENDER, onRender) : null;
-			this.hasEventListener(Event.ADDED) ? this.removeEventListener(Event.ADDED, onAdded) : null;
-			this.hasEventListener(Event.ADDED_TO_STAGE) ? this.removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage) : null;
-			this.hasEventListener(Event.REMOVED) ? this.removeEventListener(Event.REMOVED, onRemoved) : null;
-			this.hasEventListener(Event.REMOVED_FROM_STAGE) ? this.removeEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStage) : null;
-			this.hasEventListener(Event.RESIZE) ? this.removeEventListener(Event.RESIZE, onResize) : null;
 		}
 
 		/**
@@ -92,6 +64,7 @@ package org.feather.lib.core
 		{
 			commitProperties();
 			creatChildren();
+			registerEvents();
 		}
 
 		/**
@@ -112,68 +85,50 @@ package org.feather.lib.core
 			_style.isValidate=_isValidate=_style && _style.isValidate ? _style.isValidate : true;
 		}
 
+		/**所有属性归为初始化状态*/
+		protected function invalidateProperties():void
+		{
+			_style=new Object();
+			commitProperties();
+		}
+
 		/**
-		 * 创建组件的子组件
+		 * 创建组件的子对象
 		 */
 		protected function creatChildren():void
 		{
 		}
 
 		/**
-		 * 渲染UI
+		 * 移除组件的子对象
 		 */
-		public function validate(e:Event=null):void
+		protected function removeChildren():void
 		{
-			if (_isValidate && _changed)
-			{
-				_changed=false;
-				validateNow();
-			}
-			else
-			{
-				return;
-			}
+			_displayListHash.foreach(function(k:*):void
+				{
+					removeChild(k)
+				})
+			_displayListHash.clear();
 		}
 
-		/**
-		 * 及时渲染
-		 */
-		public function validateNow(e:Event=null):void
+		protected function registerEvents():void
 		{
-			invalidate();
+			this.hasEventListener(Event.RENDER) ? null : this.addEventListener(Event.RENDER, onRender);
+			this.hasEventListener(Event.ADDED) ? null : this.addEventListener(Event.ADDED, onAdded);
+			this.hasEventListener(Event.ADDED_TO_STAGE) ? null : this.addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+			this.hasEventListener(Event.REMOVED) ? null : this.addEventListener(Event.REMOVED, onRemoved);
+			this.hasEventListener(Event.REMOVED_FROM_STAGE) ? null : this.addEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStage);
+			this.hasEventListener(Event.RESIZE) ? null : this.addEventListener(Event.RESIZE, onResize);
 		}
 
-		/**
-		 * 作废渲染
-		 */
-		public function invalidate():void
+		protected function removeEvents():void
 		{
-			Drawer.clear(this);
-		}
-
-		protected function invalidateProperties():void
-		{
-
-		}
-
-		/**
-		 * <br>The purpose of this method is to perform measurement</br>
-		 * <br> calculation and define sizing information for the framework.</br>
-		 */
-		protected function measure():void
-		{
-		}
-
-		protected function invalidateSize():void
-		{
-		}
-
-		public function updateDisplayList():void
-		{
-		}
-
-		public function invalidateDisplayList():void
-		{
+			this.hasEventListener(Event.RENDER) ? this.removeEventListener(Event.RENDER, onRender) : null;
+			this.hasEventListener(Event.ADDED) ? this.removeEventListener(Event.ADDED, onAdded) : null;
+			this.hasEventListener(Event.ADDED_TO_STAGE) ? this.removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage) : null;
+			this.hasEventListener(Event.REMOVED) ? this.removeEventListener(Event.REMOVED, onRemoved) : null;
+			this.hasEventListener(Event.REMOVED_FROM_STAGE) ? this.removeEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStage) : null;
+			this.hasEventListener(Event.RESIZE) ? this.removeEventListener(Event.RESIZE, onResize) : null;
 		}
 
 		protected function onRender(e:Event):void
@@ -206,6 +161,59 @@ package org.feather.lib.core
 		protected function onResize(e:Event):void
 		{
 			Debugger.debug(e, this);
+		}
+
+		/**
+		 * 渲染UI
+		 */
+		public function validate(e:Event=null):void
+		{
+			if (_isValidate && _changed)
+			{
+				_changed=false;
+				validateNow();
+			}
+			else
+			{
+				return;
+			}
+		}
+
+		/**
+		 * 及时渲染
+		 */
+		public function validateNow(e:Event=null):void
+		{
+			invalidate();
+		}
+
+		/**
+		 * 对于现实容器清空意味着清除一切子和绘制
+		 */
+		public function invalidate():void
+		{
+			removeChildren();
+			Drawer.clear(this);
+		}
+
+		/**
+		 * <br>The purpose of this method is to perform measurement</br>
+		 * <br> calculation and define sizing information for the framework.</br>
+		 */
+		protected function measure():void
+		{
+		}
+
+		protected function invalidateSize():void
+		{
+		}
+
+		public function updateDisplayList():void
+		{
+		}
+
+		public function invalidateDisplayList():void
+		{
 		}
 
 		/**
@@ -270,7 +278,7 @@ package org.feather.lib.core
 		 */
 		public function setSize(w:Number, h:Number):void
 		{
-			if (!(this.width == w && this.height == h))
+			if (this.width !== w || this.height !== h)
 			{
 				_changed=true;
 				this.width=w;
@@ -286,7 +294,7 @@ package org.feather.lib.core
 		 */
 		public function setSelfSize(ws:Number, hs:Number):void
 		{
-			if (!(this.wsize == ws && this.hsize == hs))
+			if (this.wsize !== ws || this.hsize !== hs)
 			{
 				_changed=true;
 				this.wsize=ws;
@@ -328,7 +336,7 @@ package org.feather.lib.core
 		 */
 		public function set wsize(w:Number):void
 		{
-			if (_wsize != w)
+			if (_wsize !== w)
 			{
 				_changed=true;
 				_wsize=_style.wsize=w;
@@ -351,7 +359,7 @@ package org.feather.lib.core
 		 */
 		public function set hsize(h:Number):void
 		{
-			if (_hsize != h)
+			if (_hsize !== h)
 			{
 				_changed=true;
 				_hsize=_style.hsize=h;
@@ -374,7 +382,7 @@ package org.feather.lib.core
 		 */
 		public function set rw(r:Number):void
 		{
-			if (_rw != r)
+			if (_rw !== r)
 			{
 				_changed=true;
 				_rw=_style.rw=r;
@@ -397,7 +405,7 @@ package org.feather.lib.core
 		 */
 		public function set rh(r:Number):void
 		{
-			if (_rh != r)
+			if (_rh !== r)
 			{
 				_changed=true;
 				_rh=_style.rh=r;
@@ -412,7 +420,7 @@ package org.feather.lib.core
 
 		public function set enabled(boo:Boolean):void
 		{
-			if (_enabled != boo)
+			if (_enabled !== boo)
 			{
 				_changed=true;
 				_enabled=boo;

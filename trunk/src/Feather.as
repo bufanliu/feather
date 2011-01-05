@@ -6,13 +6,14 @@ package
 	import flash.events.MouseEvent;
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
-
+	
 	import org.feather.lib.controls.BaseButton;
 	import org.feather.lib.controls.Button;
 	import org.feather.lib.controls.LabelButton;
 	import org.feather.lib.core.BaseUIComponent;
 	import org.feather.lib.core.IBaseUIComponent;
 	import org.feather.lib.core.Repainter;
+	import org.feather.lib.core.ShapeComponent;
 	import org.feather.lib.layout.BaseBorder;
 	import org.feather.lib.layout.Container;
 	import org.feather.lib.layout.Label;
@@ -29,7 +30,7 @@ package
 	{
 		public function Feather()
 		{
-			var a:Label=new Label();
+			/*var a:Label=new Label();
 			a.selectable=true;
 			a.autoSize=TextFieldAutoSize.CENTER;
 
@@ -86,6 +87,11 @@ package
 			//c.wsize=50;
 			//c.thickness=5;
 			//stage.invalidate();
+			
+			var g:ShapeComponent=new ShapeComponent();*/
+			
+			var spr:ProSprite=new ProSprite();
+			addChild(spr);
 		}
 	}
 }

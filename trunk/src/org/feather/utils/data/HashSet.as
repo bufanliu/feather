@@ -67,7 +67,7 @@ package org.feather.utils.data
 
 		public function containsAll(arr:Array):Boolean
 		{
-			var i:int = 0;
+			var i:int=0;
 			while (i < arr.length)
 			{
 				if (!contains(arr[i]))
@@ -90,8 +90,8 @@ package org.feather.utils.data
 
 		public function toArray():Array
 		{
-			var arr:* = new Array(_length);
-			var i:int = 0;
+			var arr:*=new Array(_length);
+			var i:int=0;
 			for each (var k:*in _container)
 			{
 				arr[i]=k;

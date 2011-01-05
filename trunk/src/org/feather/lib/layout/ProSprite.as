@@ -25,6 +25,7 @@ package org.feather.lib.layout
 	 */
 	public class ProSprite extends BaseUIComponent
 	{
+		/** 样式属性*/
 		protected var _bgColor:uint;
 		protected var _bgAlp:Number;
 		protected var _padding:Object;

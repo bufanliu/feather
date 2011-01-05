@@ -22,8 +22,18 @@ package org.feather.lib.geom
 		protected var _hsize:Number;
 		protected var _color:uint;
 		protected var _alp:Number;
+		
+		private static const DEFAULT_BG_COLOR:uint=0xEEEEEE;
+		private static const DEFAULT_BG_ALP:Number=1;
+		private static const DEFAULT_BORDER_COLOR:uint=0xDDDDDD;
+		private static const DEFAULT_BORDER_ALP:Number=1;
+		private static const DEFAULT_THICKNESS:Number=1;
+		private static const DEFAULT_W:Number=320;
+		private static const DEFAULT_H:Number=240;
+		private static const DEFAULT_RW:Number=0;
+		private static const DEFAULT_RH:Number=0;
 
-		public function Rect(x:Number=0, y:Number=0, w:Number=320, h:Number=240, color:uint=0xEEEEEE, alp:Number=1):void
+		public function Rect(style:Object=null):void
 		{
 			initData(o, w, h, color, alp);
 			registerRenderEvent();

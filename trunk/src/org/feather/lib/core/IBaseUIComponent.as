@@ -73,12 +73,12 @@ package org.feather.lib.core
 		 *获取或设置组件圆角宽
 		 */
 		function get rw():Number;
-		function set rw(h:Number):void;
+		function set rw(r:Number):void;
 		/**
 		 *获取或设置组件圆角高
 		 */
 		function get rh():Number;
-		function set rh(h:Number):void;
+		function set rh(r:Number):void;
 		/**
 		 * 获取一个值，该值指示组件是否可以接受用户交互
 		 */
