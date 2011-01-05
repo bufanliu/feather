@@ -44,7 +44,7 @@ package org.feather.lib.core
 		/**组件状态是否有改变*/
 		protected var _changed:Boolean;
 
-		/**显示组件核心基类*/
+		/**显示组件核心基类（抽象类不被实例化）*/
 		public function BaseUIComponent(style:Object=null):void
 		{
 			super();

@@ -33,7 +33,6 @@ package org.feather.lib.layout
 		protected var _bottom:Number;
 		protected var _left:Number;
 		protected var _right:Number;
-
 		protected var _hitArea:Sprite;
 		protected var _hitRect:Rectangle;
 		protected var _hitX:Number;
