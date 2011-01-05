@@ -164,7 +164,7 @@ package org.feather.lib.core
 		}
 
 		/**
-		 * 渲染UI
+		 * 执行生效
 		 */
 		public function validate(e:Event=null):void
 		{
@@ -180,19 +180,53 @@ package org.feather.lib.core
 		}
 
 		/**
-		 * 及时渲染
+		 * 立即执行生效
 		 */
 		public function validateNow(e:Event=null):void
 		{
-			invalidate();
+			if (((e && e.eventPhase != 3) || !e) && this.parent)
+			{
+				//作废
+				invalidate();
+				//绘制
+				draw(e);
+				//创建子
+				creatChildren();
+				//布局
+				layout();
+			}
 		}
 
 		/**
-		 * 对于现实容器清空意味着清除一切子和绘制
+		 * 作废
 		 */
 		public function invalidate():void
 		{
+			clear();
 			removeChildren();
+		}
+
+		/**
+		 *渲染、绘制
+		 */
+		protected function draw(e:Event=null):void
+		{
+
+		}
+
+		/**
+		 * 子对象在组件内部的布局
+		 */
+		protected function layout():void
+		{
+
+		}
+
+		/**
+		 *清除渲染、绘制
+		 */
+		protected function clear():void
+		{
 			Drawer.clear(this);
 		}
 
@@ -255,6 +289,22 @@ package org.feather.lib.core
 		public function get style():Object
 		{
 			return _style;
+		}
+
+		/**
+		 * 组件内部子集
+		 */
+		public function get children():Array
+		{
+			return _children;
+		}
+
+		/**
+		 * 组件内部位于显示列表的子集
+		 */
+		public function get displayList():HashSet
+		{
+			return _displayListHash;
 		}
 
 		/**

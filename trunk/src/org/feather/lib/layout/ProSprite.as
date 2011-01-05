@@ -85,14 +85,14 @@ package org.feather.lib.layout
 		}
 
 		/**
-		 * 渲染UI
+		 *渲染、绘制
 		 */
-		override public function validateNow(e:Event=null):void
+		override protected function draw(e:Event=null):void
 		{
 			if (((e && e.eventPhase != 3) || !e) && this.parent)
 			{
-				super.validateNow();
-				Debugger.debug("render:" + e, this);
+				super.draw();
+				Debugger.debug("validateNow:" + e, this);
 				Drawer.drawRectArea(this, _startX, _startY, _wsize, _hsize, _bgColor, _bgAlp, _rw, _rh);
 				initReaction();
 			}

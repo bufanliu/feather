@@ -20,11 +20,11 @@ package org.feather.lib.layout
 	 */
 	public class BaseBorder extends BaseUIComponent
 	{
+		/** 样式属性*/
 		protected var _borderColor:uint;
 		protected var _borderAlp:Number;
-		protected var _thickness:Number
-		protected var _layout:String
-
+		protected var _thickness:Number;
+		protected var _layout:String;
 		protected var _pixelHinting:Boolean;
 		protected var _scaleMode:String;
 		protected var _caps:String;
@@ -51,14 +51,14 @@ package org.feather.lib.layout
 		}
 
 		/**
-		 * 渲染UI
+		 *渲染、绘制
 		 */
-		override public function validateNow(e:Event=null):void
+		override protected function draw(e:Event=null):void
 		{
 			if (((e && e.eventPhase != 3) || !e) && this.parent)
 			{
-				super.validateNow();
-				Debugger.debug("render:" + e, this);
+				super.draw();
+				Debugger.debug("validateNow:" + e, this);
 				Drawer.drawRectBorder(this, _startX, _startY, _wsize, _hsize, _borderColor, _borderAlp, _thickness, _rw, _rh, _layout, _pixelHinting, _scaleMode, _caps, _joints, _miterLimit);
 			}
 		}
@@ -90,7 +90,7 @@ package org.feather.lib.layout
 		 *获取边框色布局
 		 * @return 边框布局
 		 */
-		public function get layout():String
+		public function get borderLayout():String
 		{
 			return _layout;
 		}
@@ -99,7 +99,7 @@ package org.feather.lib.layout
 		 *设置边框布局
 		 * @return 边框布局
 		 */
-		public function set layout(m:String):void
+		public function set borderLayout(m:String):void
 		{
 			if (_layout != m)
 			{

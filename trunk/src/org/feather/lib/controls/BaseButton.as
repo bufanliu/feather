@@ -35,9 +35,9 @@ package org.feather.lib.controls
 			super(style);
 		}
 
-		override protected function initialize():void
+		override protected function commitProperties():void
 		{
-			super.initialize();
+			super.commitProperties();
 			_style.skin=_skin=_style && _style.skin ? _style.skin : _defaultSkin;
 			_upSkin=_skin && _skin.up ? _skin.up : _defaultSkin.up;
 			_overSkin=_skin && _skin.over ? _skin.over : _defaultSkin.over;
@@ -47,7 +47,15 @@ package org.feather.lib.controls
 			_firstRender=true;
 		}
 
-		override public function validateNow(e:Event=null):void
+		override protected function creatChildren():void
+		{
+			super.creatChildren();
+		}
+
+		/**
+		 *渲染、绘制
+		 */
+		override protected function draw(e:Event=null):void
 		{
 			if (((e && e.eventPhase != 3) || !e) && this.parent)
 			{
