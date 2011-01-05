@@ -92,7 +92,6 @@ package
 			
 			var spr:ProSprite=new ProSprite();
 			addChild(spr);
-			spr.wsize=10;
 		}
 	}
 }
