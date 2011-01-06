@@ -1,28 +1,18 @@
-package org.feather.lib.layout
+package org.feather.lib.geom
 {
-	import flash.display.LineScaleMode;
-	import flash.display.Sprite;
 	import flash.events.Event;
 
 	import org.feather.config.LayoutConfig;
-	import org.feather.utils.Debugger;
-	import org.feather.utils.Drawer;
 	import org.feather.lib.core.BaseUIComponent;
-	import org.feather.lib.core.UIComponentStyle;
+	import org.feather.utils.Drawer;
+	import org.feather.lib.layout.BorderFillLayout;
 
-	/**
-	 * 边框基类
-	 * @author Aaron Wei
-	 * @email weilong1@staff.sina.com.cn
-	 * @msn asianfalcon@msn.com
-	 * @qq 120020062
-	 * @copy Copyright © 1996 - 2012 SINA Corporation, All Rights Reserved
-	 */
-	public class BaseBorder extends BaseUIComponent
+	public class CircleComponent extends BaseUIComponent
 	{
 		/** 样式属性*/
-		protected var _rw:Number;
-		protected var _rh:Number;
+		protected var _radius:Number;
+		protected var _bgColor:uint;
+		protected var _bgAlp:Number;
 		protected var _borderColor:uint;
 		protected var _borderAlp:Number;
 		protected var _thickness:Number;
@@ -33,7 +23,7 @@ package org.feather.lib.layout
 		protected var _joints:String;
 		protected var _miterLimit:Number;
 
-		public function BaseBorder(style:Object=null):void
+		public function CircleComponent(style:Object=null)
 		{
 			super(style);
 		}
@@ -41,9 +31,10 @@ package org.feather.lib.layout
 		override protected function commitProperties():void
 		{
 			super.commitProperties();
-			_style.rw=_rw=(_style && (_style.rw || _style.rw === 0)) ? _style.rw : LayoutConfig.DEFAULT_RW;
-			_style.rh=_rh=(_style && (_style.rh || _style.rh === 0)) ? _style.rh : LayoutConfig.DEFAULT_RH;
-			_style.borderColor=_borderColor=(_style && (_style.borderColor || _style.borderColor == 0)) ? _style.borderColor : LayoutConfig.DEFAULT_BORDER_COLOR;
+			_style.radius=_radius=(_style && (_style.radius || _style.radius === 0)) ? _style.radius : LayoutConfig.DEFAULT_RADIUS;
+			_style.bgColor=_bgColor=(_style && (_style.bgColor || _style.bgColor === 0)) ? _style.bgColor : LayoutConfig.DEFAULT_BG_COLOR;
+			_style.bgAlp=_bgAlp=(_style && (_style.bgAlp || _style.bgAlp === 0)) ? _style.bgAlp : LayoutConfig.DEFAULT_BG_ALP;
+			_style.borderColor=_borderColor=(_style && (_style.borderColor || _style.borderColor === 0)) ? _style.borderColor : LayoutConfig.DEFAULT_BORDER_COLOR;
 			_style.borderAlp=_borderAlp=(_style && (_style.borderAlp || _style.borderAlp === 0)) ? _style.borderAlp : LayoutConfig.DEFAULT_BORDER_ALP;
 			_style.thickness=_thickness=(_style && (_style.thickness || _style.thickness === 0)) ? _style.thickness : LayoutConfig.DEFAULT_THICKNESS;
 			_style.layout=_layout=(_style && _style.borderLayout) ? _style.borderLayout : BorderFillLayout.INNER;
@@ -54,61 +45,53 @@ package org.feather.lib.layout
 			_style.miterLimit=_miterLimit=(_style && _style.miterLimit) ? _style.miterLimit : LayoutConfig.DEFAULT_MITERLIMIT;
 		}
 
-		/**
-		 *渲染、绘制
-		 */
 		override protected function draw(e:Event=null):void
 		{
-			if (((e && e.eventPhase != 3) || !e) && this.parent)
-			{
-				super.draw();
-				Debugger.debug("validateNow:" + e, this);
-				Drawer.drawRectBorder(this, _startX, _startY, _wsize, _hsize, _borderColor, _borderAlp, _thickness, _rw, _rh, _layout, _pixelHinting, _scaleMode, _caps, _joints, _miterLimit);
-			}
+			Drawer.drawCircle(this, 0, 0, _radius, _bgColor, _bgAlp, _borderColor, _borderAlp, _thickness, _layout);
 		}
 
 		/**
-		 *获取容器圆角半径宽
-		 * @return 容器圆角半径宽
+		 *获取容器背景色
+		 * @return 容器背景色
 		 */
-		public function get rw():Number
+		public function get bgColor():uint
 		{
-			return _rw;
+			return _bgColor;
 		}
 
 		/**
-		 *设置容器圆角半径宽
-		 * @param r：容器圆角半径宽
+		 *设置容器背景色
+		 * @param c：容器背景色
 		 */
-		public function set rw(r:Number):void
+		public function set bgColor(c:uint):void
 		{
-			if (_rw !== r)
+			if (_bgColor != c)
 			{
 				_changed=true;
-				_rw=_style.rw=r;
+				_bgColor=_style.bgColor=c;
 			}
 			validate();
 		}
 
 		/**
-		 *获取容器圆角半径高
-		 * @return 容器圆角半径高
+		 *获取容器背景透明度
+		 * @return 容器背景透明度
 		 */
-		public function get rh():Number
+		public function get bgAlp():Number
 		{
-			return _rh;
+			return _bgAlp;
 		}
 
 		/**
-		 *设置容器圆角半径高
-		 * @param r：容器圆角半径高
+		 * 设置容器背景透明度
+		 * @param a：容器背景透明度
 		 */
-		public function set rh(r:Number):void
+		public function set bgAlp(a:Number):void
 		{
-			if (_rh !== r)
+			if (_bgAlp != a)
 			{
-				_changed=true;
-				_rh=_style.rh=r;
+				_changed=false;
+				_bgAlp=_style.bgAlp=a;
 			}
 			validate();
 		}

@@ -26,6 +26,8 @@ package org.feather.lib.layout
 	public class ProSprite extends BaseUIComponent
 	{
 		/** 样式属性*/
+		protected var _rw:Number;
+		protected var _rh:Number;
 		protected var _bgColor:uint;
 		protected var _bgAlp:Number;
 		protected var _padding:Object;
@@ -57,6 +59,8 @@ package org.feather.lib.layout
 		override protected function commitProperties():void
 		{
 			super.commitProperties();
+			_style.rw=_rw=(_style && (_style.rw || _style.rw === 0)) ? _style.rw : LayoutConfig.DEFAULT_RW;
+			_style.rh=_rh=(_style && (_style.rh || _style.rh === 0)) ? _style.rh : LayoutConfig.DEFAULT_RH;
 			_style.bgColor=_bgColor=(_style && (_style.bgColor || _style.bgColor == 0)) ? _style.bgColor : LayoutConfig.DEFAULT_BG_COLOR;
 			_style.bgAlp=_bgAlp=(_style && (_style.bgAlp || _style.bgAlp === 0)) ? _style.bgAlp : LayoutConfig.DEFAULT_BG_ALP;
 			_style.hitRect=_hitRect=(_style && _style.hitRect) ? _style.hitRect : null;
@@ -106,6 +110,52 @@ package org.feather.lib.layout
 		override public function set hitArea(spr:Sprite):void
 		{
 			super.hitArea=_hitArea=spr;
+		}
+
+		/**
+		 *获取容器圆角半径宽
+		 * @return 容器圆角半径宽
+		 */
+		public function get rw():Number
+		{
+			return _rw;
+		}
+
+		/**
+		 *设置容器圆角半径宽
+		 * @param r：容器圆角半径宽
+		 */
+		public function set rw(r:Number):void
+		{
+			if (_rw !== r)
+			{
+				_changed=true;
+				_rw=_style.rw=r;
+			}
+			validate();
+		}
+
+		/**
+		 *获取容器圆角半径高
+		 * @return 容器圆角半径高
+		 */
+		public function get rh():Number
+		{
+			return _rh;
+		}
+
+		/**
+		 *设置容器圆角半径高
+		 * @param r：容器圆角半径高
+		 */
+		public function set rh(r:Number):void
+		{
+			if (_rh !== r)
+			{
+				_changed=true;
+				_rh=_style.rh=r;
+			}
+			validate();
 		}
 
 		/**

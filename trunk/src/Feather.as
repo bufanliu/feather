@@ -19,6 +19,7 @@ package
 	import org.feather.lib.layout.Label;
 	import org.feather.lib.layout.LoaderContainer;
 	import org.feather.lib.layout.ProSprite;
+	import org.feather.lib.geom.CircleComponent;
 	import org.feather.utils.Debugger;
 	import org.feather.utils.MathUtils;
 	import org.feather.utils.data.HashSet;
@@ -98,7 +99,10 @@ package
 
 			var b:Button=new Button();
 			addChild(b);
+			b.buttonMode=true;
 			Layout.setCenterOO(b, stage);
+			
+			var c:CircleComponent=new CircleComponent();
 
 
 		}
