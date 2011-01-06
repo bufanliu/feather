@@ -19,6 +19,8 @@ package org.feather.config
 		public static var DEFAULT_W:Number=320;
 		public static var DEFAULT_H:Number=240;
 
+		public static var DEFAULT_RADIUS:Number=5;
+
 		public static var DEFAULT_BG_COLOR:uint=0xEEEEEE;
 		public static var DEFAULT_BG_ALP:Number=1;
 

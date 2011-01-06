@@ -7,7 +7,7 @@ package org.feather.lib.controls
 	import org.feather.lib.core.BaseUIComponent;
 	import org.feather.lib.core.UIComponentStyle;
 	import org.feather.lib.layout.ProSprite;
-	import org.feather.lib.geom.Rect;
+	import org.feather.lib.geom.RectShape;
 	import org.feather.utils.Debugger;
 
 	public class SimpleProgressBar extends BaseUIComponent
@@ -40,15 +40,15 @@ package org.feather.lib.controls
 		{
 			_wsize=_wsize ? _wsize : 300;
 			_hsize=_hsize ? _hsize : 5;
-			_bgBar=_bgBar ? _bgBar : new Rect(new Point(0, 0), _wsize, _hsize, 0xFF0000, 1);
-			_progressBar=_progressBar ? _progressBar : new Rect(new Point(0, 0), _wsize, _hsize, 0x00FF00, 1);
+			_bgBar=_bgBar ? _bgBar : new RectShape(new Point(0, 0), _wsize, _hsize, 0xFF0000, 1);
+			_progressBar=_progressBar ? _progressBar : new RectShape(new Point(0, 0), _wsize, _hsize, 0x00FF00, 1);
 			if (!_headBar)
 			{
 				_headBar=new ExtendedSimpleButton();
-				_headBar.upState=new Rect(new Point(-3.5, -3.5), 7, 7, 0xFFBB00, 1);
-				_headBar.overState=new Rect(new Point(-3.5, -3.5), 7, 7, 0xFFDD00, 1);
-				_headBar.downState=new Rect(new Point(-3.5, -3.5), 7, 7, 0xFFAA00, 1);
-				_headBar.hitTestState=new Rect(new Point(-3.5, -3.5), 7, 7, 0x00FFFF, 1);
+				_headBar.upState=new RectShape(new Point(-3.5, -3.5), 7, 7, 0xFFBB00, 1);
+				_headBar.overState=new RectShape(new Point(-3.5, -3.5), 7, 7, 0xFFDD00, 1);
+				_headBar.downState=new RectShape(new Point(-3.5, -3.5), 7, 7, 0xFFAA00, 1);
+				_headBar.hitTestState=new RectShape(new Point(-3.5, -3.5), 7, 7, 0x00FFFF, 1);
 			}
 			if (!_interactiveArea)
 			{

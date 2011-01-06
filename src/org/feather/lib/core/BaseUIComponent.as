@@ -32,8 +32,6 @@ package org.feather.lib.core
 		protected var _startY:Number;
 		protected var _wsize:Number;
 		protected var _hsize:Number;
-		protected var _rw:Number;
-		protected var _rh:Number;
 		protected var _stage:Stage;
 		/** 组件初始化参数是否为null的标识*/
 		protected var _isParamNull:Boolean;
@@ -79,8 +77,6 @@ package org.feather.lib.core
 			_style.startY=_startY=(_style && (_style.startY || _style.startY === 0)) ? _style.startY : 0;
 			_style.wsize=_wsize=(_style && (_style.wsize || _style.wsize === 0)) ? _style.wsize : LayoutConfig.DEFAULT_W;
 			_style.hsize=_hsize=(_style && (_style.hsize || _style.hsize === 0)) ? _style.hsize : LayoutConfig.DEFAULT_H;
-			_style.rw=_rw=(_style && (_style.rw || _style.rw === 0)) ? _style.rw : LayoutConfig.DEFAULT_RW;
-			_style.rh=_rh=(_style && (_style.rh || _style.rh === 0)) ? _style.rh : LayoutConfig.DEFAULT_RH;
 			_style.enabled=_enabled=(_style && _style.enabled == false) ? false : true;
 			_style.isValidate=_isValidate=_style && _style.isValidate ? _style.isValidate : true;
 		}
@@ -186,13 +182,9 @@ package org.feather.lib.core
 		{
 			if (((e && e.eventPhase != 3) || !e) && this.parent)
 			{
-				//作废
 				invalidate();
-				//绘制
 				draw(e);
-				//创建子
 				creatChildren();
-				//布局
 				layout();
 			}
 		}
@@ -215,19 +207,19 @@ package org.feather.lib.core
 		}
 
 		/**
-		 * 子对象在组件内部的布局
-		 */
-		protected function layout():void
-		{
-
-		}
-
-		/**
 		 *清除渲染、绘制
 		 */
 		protected function clear():void
 		{
 			Drawer.clear(this);
+		}
+
+		/**
+		 * 子对象在组件内部的布局
+		 */
+		protected function layout():void
+		{
+
 		}
 
 		/**
@@ -413,52 +405,6 @@ package org.feather.lib.core
 			{
 				_changed=true;
 				_hsize=_style.hsize=h;
-			}
-			validate();
-		}
-
-		/**
-		 *获取容器圆角半径宽
-		 * @return 容器圆角半径宽
-		 */
-		public function get rw():Number
-		{
-			return _rw;
-		}
-
-		/**
-		 *设置容器圆角半径宽
-		 * @param r：容器圆角半径宽
-		 */
-		public function set rw(r:Number):void
-		{
-			if (_rw !== r)
-			{
-				_changed=true;
-				_rw=_style.rw=r;
-			}
-			validate();
-		}
-
-		/**
-		 *获取容器圆角半径高
-		 * @return 容器圆角半径高
-		 */
-		public function get rh():Number
-		{
-			return _rh;
-		}
-
-		/**
-		 *设置容器圆角半径高
-		 * @param r：容器圆角半径高
-		 */
-		public function set rh(r:Number):void
-		{
-			if (_rh !== r)
-			{
-				_changed=true;
-				_rh=_style.rh=r;
 			}
 			validate();
 		}
