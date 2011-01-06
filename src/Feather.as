@@ -15,6 +15,7 @@ package
 	import org.feather.lib.core.Repainter;
 	import org.feather.lib.core.ShapeComponent;
 	import org.feather.lib.layout.BaseBorder;
+	import org.feather.lib.layout.BorderFillLayout;
 	import org.feather.lib.layout.Container;
 	import org.feather.lib.layout.Label;
 	import org.feather.lib.layout.LoaderContainer;
@@ -91,20 +92,15 @@ package
 
 			 var g:ShapeComponent=new ShapeComponent();*/
 
-			var spr:Container=new Container();
-			addChild(spr);
-			spr.borderColor=0xFF0000;
-			spr.bgColor=0xFFFF00;
-			spr.thickness=5;
+			/*var spr:Container=new Container();
+			   addChild(spr);
+			   spr.borderColor=0xFF0000;
+			   spr.bgColor=0xFFFF00;
+			 spr.thickness=5;*/
 
-			var b:Button=new Button();
-			addChild(b);
-			b.buttonMode=true;
-			Layout.setCenterOO(b, stage);
-			
-			var c:CircleComponent=new CircleComponent();
-
-
+			var c:CircleComponent=new CircleComponent({radius: 100, thickness: 30, bgColor: 0xFF0000, bgAlp: 0.5, borderAlp: 0.5, borderLayout: BorderFillLayout.MIDDLE});
+			addChild(c);
+			c.move(stage.stageWidth / 2, stage.stageHeight / 2);
 		}
 	}
 }

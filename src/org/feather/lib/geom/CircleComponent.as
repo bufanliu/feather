@@ -5,8 +5,17 @@ package org.feather.lib.geom
 	import org.feather.config.LayoutConfig;
 	import org.feather.lib.core.BaseUIComponent;
 	import org.feather.utils.Drawer;
+	import org.feather.utils.Debugger;
 	import org.feather.lib.layout.BorderFillLayout;
 
+	/**
+	 * 提供带有交互和容器功能的几何图形
+	 * @author Aaron Wei
+	 * @email weilong1@staff.sina.com.cn
+	 * @msn asianfalcon@msn.com
+	 * @qq 120020062
+	 * @copy Copyright © 1996 - 2012 SINA Corporation, All Rights Reserved
+	 */
 	public class CircleComponent extends BaseUIComponent
 	{
 		/** 样式属性*/
@@ -51,6 +60,29 @@ package org.feather.lib.geom
 		}
 
 		/**
+		 *获取圆半径
+		 * @return 圆半径
+		 */
+		public function get radius():Number
+		{
+			return _radius;
+		}
+
+		/**
+		 * 设置圆半径
+		 * @param a：圆半径
+		 */
+		public function set radius(r:Number):void
+		{
+			if (_radius != r)
+			{
+				_changed=true;
+				_radius=_style.radius=r;
+			}
+			validate();
+		}
+
+		/**
 		 *获取容器背景色
 		 * @return 容器背景色
 		 */
@@ -90,7 +122,7 @@ package org.feather.lib.geom
 		{
 			if (_bgAlp != a)
 			{
-				_changed=false;
+				_changed=true;
 				_bgAlp=_style.bgAlp=a;
 			}
 			validate();

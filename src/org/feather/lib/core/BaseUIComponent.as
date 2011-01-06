@@ -306,7 +306,7 @@ package org.feather.lib.core
 		{
 			if (!(this.x == x && this.y == y))
 			{
-				_changed=true;
+				_changed=false;
 				this.x=x;
 				this.y=y;
 			}

@@ -198,7 +198,7 @@ package org.feather.lib.layout
 		{
 			if (_bgAlp != a)
 			{
-				_changed=false;
+				_changed=true;
 				_bgAlp=_style.bgAlp=a;
 			}
 			validate();
