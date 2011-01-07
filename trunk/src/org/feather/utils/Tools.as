@@ -9,7 +9,6 @@ package org.feather.utils
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
 
-
 	/**
 	 *  常用基础工具类
 	 * @author Aaron Wei
@@ -174,7 +173,7 @@ package org.feather.utils
 		 * @param targ：目标版本；
 		 * @return 结果为true则通过，满足最低运行版本，反之依然；
 		 */
-		static public function compareVersion(targ:String):Boolean
+		static public function matchLowestVersion(targ:String):Boolean
 		{
 			var targ_arr:Array=targ.split(",");
 			var ver:String=Capabilities.version;
@@ -191,21 +190,5 @@ package org.feather.utils
 			}
 			return result;
 		}
-
-		/**
-		 * GC 不建议使用
-		 */
-		static public function gc():void
-		{
-			try
-			{
-				new LocalConnection().connect('foo');
-				new LocalConnection().connect('foo');
-			}
-			catch (e:*)
-			{
-			}
-		}
-
 	}
 }
