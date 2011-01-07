@@ -19,19 +19,16 @@ package org.feather.utils.display
 		private static var _setInterval:Number;
 		private static var _callbackFun:Function;
 
-		public static function checkIn(callback:Function, s:Stage):void
+		public static function check(callback:Function, s:Stage):void
 		{
 			_callbackFun=(callback != null) ? callback : _callbackFun;
 			_stage=s ? s : _stage;
 			_setInterval=setInterval(function():void
 				{
-					if (_stage != null)
+					if (_stage && _stage.stageWidth > 0 && _stage.stageHeight > 0)
 					{
-						if (_stage.stageWidth > 0 && _stage.stageHeight > 0)
-						{
-							clearInterval(_setInterval);
-							callback();
-						}
+						clearInterval(_setInterval);
+						callback();
 					}
 					else
 					{
@@ -42,7 +39,7 @@ package org.feather.utils.display
 
 		private static function set scaleMode(mode:String):void
 		{
-			if (_stage != null)
+			if (_stage)
 			{
 				_stage.scaleMode=mode;
 			}
@@ -54,7 +51,7 @@ package org.feather.utils.display
 
 		private static function get scaleMode():String
 		{
-			if (_stage != null)
+			if (_stage)
 			{
 				return _stage.scaleMode;
 			}
@@ -67,7 +64,7 @@ package org.feather.utils.display
 
 		private static function set align(quality:String):void
 		{
-			if (_stage != null)
+			if (_stage)
 			{
 				_stage.quality=quality;
 			}
@@ -79,7 +76,7 @@ package org.feather.utils.display
 
 		private static function get quality():String
 		{
-			if (_stage != null)
+			if (_stage)
 			{
 				return _stage.quality;
 			}
@@ -92,7 +89,7 @@ package org.feather.utils.display
 
 		private static function set tabChildren(tab:Boolean):void
 		{
-			if (_stage != null)
+			if (_stage)
 			{
 				_stage.tabChildren=tab;
 			}
@@ -104,7 +101,7 @@ package org.feather.utils.display
 
 		private static function get tabChildren():Boolean
 		{
-			if (_stage != null)
+			if (_stage)
 			{
 				return _stage.tabChildren;
 			}

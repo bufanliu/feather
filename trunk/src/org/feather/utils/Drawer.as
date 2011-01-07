@@ -1,14 +1,16 @@
 package org.feather.utils
 {
 	import flash.display.CapsStyle;
+	import flash.display.DisplayObject;
 	import flash.display.JointStyle;
 	import flash.display.LineScaleMode;
-	import flash.display.DisplayObject;
+	import flash.display.SpreadMethod;
 	import flash.display.Sprite;
 	import flash.geom.Point;
+	import flash.geom.Matrix;
 
-	import org.feather.lib.layout.BorderFillLayout;
 	import org.feather.config.LayoutConfig;
+	import org.feather.lib.layout.BorderFillLayout;
 
 	/**
 	 *  几何图形绘制类
@@ -50,6 +52,54 @@ package org.feather.utils
 			obj.graphics.lineStyle(thickness, color, alpha, pixelHinting, scaleMode, caps, joints, miterLimit);
 			obj.graphics.moveTo(start.x, start.y);
 			obj.graphics.lineTo(end.x, end.y);
+		}
+
+		/**
+		 * 画渐变线段
+		 * @param obj:* — 容器
+		 * @param start:Point — 线段起点
+		 * @param end:Point — 线段终点
+		 * @param type:String — 用于指定要使用哪种渐变类型的 GradientType 类的值：GradientType.LINEAR 或 GradientType.RADIAL
+		 * @param colors:Array — 要在渐变中使用的 RGB 十六进制颜色值数组（例如，红色为 0xFF0000，蓝色为 0x0000FF 等等）
+		 * @param alphas:Array — colors 数组中对应颜色的 alpha 值数组；有效值为 0 到 100。 如果值小于 0，Flash Player 将使用 0。 如果值大于 100，Flash Player 将使用 100
+		 * @param  ratios:Array — 颜色分布比率的数组；有效值为 0 到 255。 该值定义 100% 采样的颜色所在位置的宽度百分比。 值 0 表示渐变框中的左侧位置，255 表示渐变框中的右侧位置。 该值表示渐变框中的位置，而不是最终渐变的坐标空间，坐标空间可能比渐变框宽或窄。 为 colors 参数中的每个值指定一个值
+		 * @param thickness:uint — 线段粗细
+		 * @param matrix:Matrix (default = null) — 一个由 flash.geom.Matrix 类定义的转换矩阵。 flash.geom.Matrix 类包括 createGradientBox() 方法，通过该方法可以方便地设置矩阵，以便与 lineGradientStyle() 方法一起使用
+		 * @param spreadMethod:String (default = "pad") — 用于指定要使用哪种 spread 方法的 SpreadMethod 类的值
+		 * @param interpolationMethod:String (default = "rgb") — 用于指定要使用哪个值的 InterpolationMethod 类的值
+		 * @param focalPointRatio:Number (default = 0) — 一个控制渐变的焦点位置的数字
+		 */
+		public static function drawGradientLine(obj:*, start:Point, end:Point, type:String, colors:Array, alphas:Array, ratios:Array, thickness:uint=DEFAULT_THICKNESS, matrix:Matrix=null, spreadMethod:String=SpreadMethod.PAD, interpolationMethod:String="rgb", focalPointRatio:Number=0):void
+		{
+			obj.graphics.lineStyle(thickness);
+			obj.graphics.lineGradientStyle(type, colors, alphas, ratios, matrix, spreadMethod, interpolationMethod, focalPointRatio);
+			obj.graphics.moveTo(start.x, start.y);
+			obj.graphics.lineTo(end.x, end.y);
+		}
+
+		/**
+		 * 画连线
+		 * @param obj：容器；
+		 * @param points：连线的各节点；
+		 * @param thickness：线段粗细；
+		 * @param color：线段颜色；
+		 * @param alpha：线段透明度；
+		 * @param pixelHinting：笔触是否采用完整象素；
+		 * @param scaleMode：线条缩放模式；
+		 * @param caps：线头模式；
+		 * @param joints：拐角的连接外观的类型；
+		 * @param miterLimit：切断尖角的位置；
+		 */
+		public static function drawLines(obj:*, points:Array, thickness:uint=DEFAULT_THICKNESS, color:uint=DEFAULT_BORDER_COLOR, alpha:Number=DEFAULT_BORDER_ALP, pixelHinting:Boolean=true, scaleMode:String="none", caps:String=null, joints:String=null, miterLimit:Number=3):void
+		{
+			obj.graphics.lineStyle(thickness, color, alpha, pixelHinting, scaleMode, caps, joints, miterLimit);
+			obj.graphics.moveTo(points[0].x, points[0].y);
+			var i:int=1;
+			while (i < points.length)
+			{
+				obj.graphics.lineTo(points[i].x, points[i].y);
+				++i;
+			}
 		}
 
 		/**
