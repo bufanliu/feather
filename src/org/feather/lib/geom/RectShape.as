@@ -4,7 +4,7 @@ package org.feather.lib.geom
 	import flash.events.Event;
 
 	import org.feather.utils.Debugger;
-	import org.feather.utils.Drawer;
+	import org.feather.utils.display.Drawer;
 
 	/**
 	 *  矩形形状类，不提供容器和交互功能，只显示

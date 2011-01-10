@@ -4,7 +4,7 @@ package org.feather.lib.core
 	import flash.display.Stage;
 	import flash.events.Event;
 	import org.feather.config.LayoutConfig;
-	import org.feather.utils.Drawer;
+	import org.feather.utils.display.Drawer;
 	import org.feather.utils.Debugger;
 
 	/**

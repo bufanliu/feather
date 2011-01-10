@@ -8,6 +8,7 @@ package org.feather.utils
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
+	import org.feather.utils.display.Drawer;
 
 	/**
 	 *  常用基础工具类
