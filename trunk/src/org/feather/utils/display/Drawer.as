@@ -1,4 +1,4 @@
-package org.feather.utils
+package org.feather.utils.display
 {
 	import flash.display.CapsStyle;
 	import flash.display.DisplayObject;

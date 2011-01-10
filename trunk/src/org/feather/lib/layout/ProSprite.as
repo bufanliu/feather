@@ -11,7 +11,7 @@ package org.feather.lib.layout
 	import org.feather.lib.layout.SpriteFormat;
 	import org.feather.utils.Debugger;
 	import org.feather.utils.Tools;
-	import org.feather.utils.Drawer;
+	import org.feather.utils.display.Drawer;
 	import org.feather.lib.core.BaseUIComponent;
 	import org.feather.lib.core.UIComponentStyle;
 

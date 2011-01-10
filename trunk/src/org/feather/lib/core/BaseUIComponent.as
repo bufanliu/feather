@@ -6,7 +6,7 @@ package org.feather.lib.core
 
 	import org.feather.config.LayoutConfig;
 	import org.feather.utils.Debugger;
-	import org.feather.utils.Drawer;
+	import org.feather.utils.display.Drawer;
 	import org.feather.utils.Tools;
 	import org.feather.utils.data.HashSet;
 	import org.feather.utils.data.Option;

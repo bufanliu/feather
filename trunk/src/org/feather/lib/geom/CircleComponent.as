@@ -4,7 +4,7 @@ package org.feather.lib.geom
 
 	import org.feather.config.LayoutConfig;
 	import org.feather.lib.core.BaseUIComponent;
-	import org.feather.utils.Drawer;
+	import org.feather.utils.display.Drawer;
 	import org.feather.utils.Debugger;
 	import org.feather.lib.layout.BorderFillLayout;
 
