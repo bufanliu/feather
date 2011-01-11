@@ -6,9 +6,10 @@ package org.feather.utils.display
 	import flash.display.LineScaleMode;
 	import flash.display.SpreadMethod;
 	import flash.display.Sprite;
-	import flash.geom.Point;
 	import flash.geom.Matrix;
-
+	import flash.geom.Point;
+	import flash.utils.setTimeout;
+	import flash.utils.clearTimeout;
 	import org.feather.config.LayoutConfig;
 	import org.feather.lib.layout.BorderFillLayout;
 
@@ -35,23 +36,63 @@ package org.feather.utils.display
 
 		/**
 		 * 画线段
-		 * @param obj：容器；
-		 * @param start：线段起点；
-		 * @param end：线段终点；
-		 * @param thickness：线段粗细；
-		 * @param color：线段颜色；
-		 * @param alpha：线段透明度；
-		 * @param pixelHinting：笔触是否采用完整象素；
-		 * @param scaleMode：线条缩放模式；
-		 * @param caps：线头模式；
-		 * @param joints：拐角的连接外观的类型；
-		 * @param miterLimit：切断尖角的位置；
+		 * @param obj:* — 容器；
+		 * @param start:Point — 线段起点；
+		 * @param end:Point — 线段终点；
+		 * @param thickness:Number — 线段粗细；
+		 * @param color:uint — 线段颜色；
+		 * @param alpha:Number — 线段透明度；
+		 * @param pixelHinting:Boolean — 笔触是否采用完整象素；
+		 * @param scaleMode:String — 线条缩放模式；
+		 * @param caps:String — 线头模式；
+		 * @param joints:String — 拐角的连接外观的类型；
+		 * @param miterLimit:Number — 切断尖角的位置；
 		 */
-		public static function drawLine(obj:*, start:Point, end:Point, thickness:uint=DEFAULT_THICKNESS, color:uint=DEFAULT_BORDER_COLOR, alpha:Number=DEFAULT_BORDER_ALP, pixelHinting:Boolean=true, scaleMode:String="none", caps:String=null, joints:String=null, miterLimit:Number=3):void
+		public static function drawLine(obj:*, start:Point, end:Point, thickness:Number=DEFAULT_THICKNESS, color:uint=DEFAULT_BORDER_COLOR, alpha:Number=DEFAULT_BORDER_ALP, pixelHinting:Boolean=true, scaleMode:String="none", caps:String=null, joints:String=null, miterLimit:Number=3):void
 		{
 			obj.graphics.lineStyle(thickness, color, alpha, pixelHinting, scaleMode, caps, joints, miterLimit);
 			obj.graphics.moveTo(start.x, start.y);
 			obj.graphics.lineTo(end.x, end.y);
+		}
+
+
+
+
+		/**
+		 * 画虚线段
+		 * @param obj:* — 容器；
+		 * @param start:Point — 线段起点；
+		 * @param end:Point — 线段终点；
+		 * @param len:Point:Number — 虚线单元长度；
+		 * @param gap:Number — 虚线间隔长度；
+		 * @param thickness:Number — 线段粗细；
+		 * @param color:uint — 线段颜色；
+		 * @param alpha:Number — 线段透明度；
+		 * @param pixelHinting:Boolean — 笔触是否采用完整象素；
+		 * @param scaleMode:String — 线条缩放模式；
+		 * @param caps:String — 线头模式；
+		 * @param joints:String — 拐角的连接外观的类型；
+		 * @param miterLimit:Number — 切断尖角的位置；
+		 */
+		public static function drawDashed(obj:*, start:Point, end:Point, len:Number=5, gap:Number=5, thickness:Number=DEFAULT_THICKNESS, color:uint=DEFAULT_BORDER_COLOR, alpha:Number=DEFAULT_BORDER_ALP, pixelHinting:Boolean=true, scaleMode:String="none", caps:String=null, joints:String=null, miterLimit:Number=3):void
+		{
+			var max:Number=Point.distance(start, end);
+			var i:Number=0;
+			var p1:Point;
+			var p2:Point;
+			while (i < max)
+			{
+				p1=Point.interpolate(end, start, i / max);
+				i+=len;
+				if (i > max)
+				{
+					i=max
+				}
+				p2=Point.interpolate(end, start, i / max);
+				obj.graphics.moveTo(p1.x, p1.y);
+				obj.graphics.lineTo(p2.x, p2.y);
+				i+=gap;
+			}
 		}
 
 		/**
@@ -78,27 +119,66 @@ package org.feather.utils.display
 		}
 
 		/**
-		 * 画连线
-		 * @param obj：容器；
-		 * @param points：连线的各节点；
-		 * @param thickness：线段粗细；
-		 * @param color：线段颜色；
-		 * @param alpha：线段透明度；
-		 * @param pixelHinting：笔触是否采用完整象素；
-		 * @param scaleMode：线条缩放模式；
-		 * @param caps：线头模式；
-		 * @param joints：拐角的连接外观的类型；
-		 * @param miterLimit：切断尖角的位置；
+		 * 带停顿的连线
+		 * @param obj:Object — 容器；
+		 * @param points:Array — 连线的各节点；
+		 * @param times:Array — 连接点的停留时间
+		 * @param thickness:uint — 线段粗细；
+		 * @param color:uint — 线段颜色；
+		 * @param alpha:Number — 线段透明度；
+		 * @param pixelHinting:Boolean — 笔触是否采用完整象素；
+		 * @param scaleMode:String — 线条缩放模式；
+		 * @param caps:String — 线头模式；
+		 * @param joints:String — 拐角的连接外观的类型；
+		 * @param miterLimit:String — 切断尖角的位置；
+		 */ /*public static function drawLines(obj:*, points:Array, thickness:uint=DEFAULT_THICKNESS, color:uint=DEFAULT_BORDER_COLOR, alpha:Number=DEFAULT_BORDER_ALP, pixelHinting:Boolean=true, scaleMode:String="none", caps:String=null, joints:String=null, miterLimit:Number=3):void
+		   {
+		   var i:int=1, len:int=points.length;
+		   obj.graphics.lineStyle(thickness, color, alpha, pixelHinting, scaleMode, caps, joints, miterLimit);
+		   obj.graphics.moveTo(points[0].x, points[0].y);
+		   while (i < len)
+		   {
+		   obj.graphics.lineTo(points[i].x, points[i].y);
+		   ++i;
+		   }
+		 }*/
+
+		/**
+		 * 间歇性连线
+		 * @param obj:Object — 容器；
+		 * @param points:Array — 连线的各节点；
+		 * @param times:Array — 连接点的停留时间
+		 * @param thickness:uint — 线段粗细；
+		 * @param color:uint — 线段颜色；
+		 * @param alpha:Number — 线段透明度；
+		 * @param pixelHinting:Boolean — 笔触是否采用完整象素；
+		 * @param scaleMode:String — 线条缩放模式；
+		 * @param caps:String — 线头模式；
+		 * @param joints:String — 拐角的连接外观的类型；
+		 * @param miterLimit:String — 切断尖角的位置；
 		 */
-		public static function drawLines(obj:*, points:Array, thickness:uint=DEFAULT_THICKNESS, color:uint=DEFAULT_BORDER_COLOR, alpha:Number=DEFAULT_BORDER_ALP, pixelHinting:Boolean=true, scaleMode:String="none", caps:String=null, joints:String=null, miterLimit:Number=3):void
+		public static function drawLines(obj:*, points:Array, times:Array=null, thickness:uint=DEFAULT_THICKNESS, color:uint=DEFAULT_BORDER_COLOR, alpha:Number=DEFAULT_BORDER_ALP, pixelHinting:Boolean=true, scaleMode:String="none", caps:String=null, joints:String=null, miterLimit:Number=3):void
 		{
+			var i:int=1, len:int=points.length, timeout:Number, time:Number;
 			obj.graphics.lineStyle(thickness, color, alpha, pixelHinting, scaleMode, caps, joints, miterLimit);
 			obj.graphics.moveTo(points[0].x, points[0].y);
-			var i:int=1;
-			while (i < points.length)
+			draw();
+			function draw():void
 			{
-				obj.graphics.lineTo(points[i].x, points[i].y);
-				++i;
+				if (i < len)
+				{
+					time=times && times[i] && times[i] > 0 ? times[i] : 0;
+					timeout=setTimeout(function():void
+						{
+							obj.graphics.lineTo(points[i].x, points[i].y);
+							++i;
+							draw();
+						}, time);
+				}
+				else
+				{
+					clearTimeout(timeout);
+				}
 			}
 		}
 
