@@ -1,13 +1,13 @@
 package org.feather.lib.geom
 {
 	import flash.events.Event;
-
+	
 	import org.feather.config.LayoutConfig;
 	import org.feather.lib.core.BaseUIComponent;
 	import org.feather.utils.display.Drawer;
 	import org.feather.utils.Debugger;
 	import org.feather.lib.layout.BorderFillLayout;
-
+	
 	/**
 	 * 提供带有交互和容器功能的几何图形
 	 * @author Aaron Wei
@@ -31,12 +31,12 @@ package org.feather.lib.geom
 		protected var _caps:String;
 		protected var _joints:String;
 		protected var _miterLimit:Number;
-
+		
 		public function CircleComponent(style:Object=null)
 		{
 			super(style);
 		}
-
+		
 		override protected function commitProperties():void
 		{
 			super.commitProperties();
@@ -52,13 +52,14 @@ package org.feather.lib.geom
 			_style.caps=_caps=(_style && _style.caps) ? _style.caps : LayoutConfig.DEFAULT_CAPS;
 			_style.joints=_joints=(_style && _style.joints) ? _style.joints : LayoutConfig.DEFAULT_JOINTS;
 			_style.miterLimit=_miterLimit=(_style && _style.miterLimit) ? _style.miterLimit : LayoutConfig.DEFAULT_MITERLIMIT;
+			Debugger.debug(_thickness,this);
 		}
-
+		
 		override protected function draw(e:Event=null):void
 		{
 			Drawer.drawCircle(this, 0, 0, _radius, _bgColor, _bgAlp, _borderColor, _borderAlp, _thickness, _layout);
 		}
-
+		
 		/**
 		 *获取圆半径
 		 * @return 圆半径
@@ -67,7 +68,7 @@ package org.feather.lib.geom
 		{
 			return _radius;
 		}
-
+		
 		/**
 		 * 设置圆半径
 		 * @param a：圆半径
@@ -81,7 +82,7 @@ package org.feather.lib.geom
 			}
 			validate();
 		}
-
+		
 		/**
 		 *获取容器背景色
 		 * @return 容器背景色
@@ -90,7 +91,7 @@ package org.feather.lib.geom
 		{
 			return _bgColor;
 		}
-
+		
 		/**
 		 *设置容器背景色
 		 * @param c：容器背景色
@@ -104,7 +105,7 @@ package org.feather.lib.geom
 			}
 			validate();
 		}
-
+		
 		/**
 		 *获取容器背景透明度
 		 * @return 容器背景透明度
@@ -113,7 +114,7 @@ package org.feather.lib.geom
 		{
 			return _bgAlp;
 		}
-
+		
 		/**
 		 * 设置容器背景透明度
 		 * @param a：容器背景透明度
@@ -127,7 +128,7 @@ package org.feather.lib.geom
 			}
 			validate();
 		}
-
+		
 		/**
 		 *获取边框色粗细
 		 * @return 边框粗细
@@ -136,7 +137,7 @@ package org.feather.lib.geom
 		{
 			return _thickness;
 		}
-
+		
 		/**
 		 *获取边框色粗细
 		 * @return 边框粗细
@@ -150,7 +151,7 @@ package org.feather.lib.geom
 			}
 			validate();
 		}
-
+		
 		/**
 		 *获取边框色布局
 		 * @return 边框布局
@@ -159,7 +160,7 @@ package org.feather.lib.geom
 		{
 			return _layout;
 		}
-
+		
 		/**
 		 *设置边框布局
 		 * @return 边框布局
@@ -173,7 +174,7 @@ package org.feather.lib.geom
 			}
 			validate();
 		}
-
+		
 		/**
 		 *获取边框色
 		 * @return 边框色
@@ -182,7 +183,7 @@ package org.feather.lib.geom
 		{
 			return _borderColor;
 		}
-
+		
 		/**
 		 *设置边框色
 		 * @param c：边框色
@@ -196,7 +197,7 @@ package org.feather.lib.geom
 			}
 			validate();
 		}
-
+		
 		/**
 		 *获取边框透明度
 		 * @return 边框透明度
@@ -205,7 +206,7 @@ package org.feather.lib.geom
 		{
 			return _borderAlp;
 		}
-
+		
 		/**
 		 * 设置边框透明度
 		 * @param a：边框透明度
