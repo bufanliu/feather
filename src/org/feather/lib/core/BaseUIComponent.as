@@ -3,13 +3,14 @@ package org.feather.lib.core
 	import flash.display.Sprite;
 	import flash.display.Stage;
 	import flash.events.Event;
-
+	import flash.geom.Point;
+	
 	import org.feather.config.LayoutConfig;
 	import org.feather.utils.Debugger;
-	import org.feather.utils.display.Drawer;
 	import org.feather.utils.Tools;
 	import org.feather.utils.data.HashSet;
 	import org.feather.utils.data.Option;
+	import org.feather.utils.display.Drawer;
 
 	/**
 	 * 显示组件核心基类

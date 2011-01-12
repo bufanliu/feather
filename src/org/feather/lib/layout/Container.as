@@ -66,7 +66,7 @@ package org.feather.lib.layout
 			if (((e && e.eventPhase != 3) || !e) && this.parent)
 			{
 				super.draw(e);
-				Debugger.debug("validateNow:" + e, this);
+				Debugger.debug("draw:" + e, this);
 				if (_border)
 				{
 					contains(_border) ? null : (addChild(_border), _displayListHash.add(_border));

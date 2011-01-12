@@ -96,7 +96,7 @@ package org.feather.lib.layout
 			if (((e && e.eventPhase != 3) || !e) && this.parent)
 			{
 				super.draw();
-				Debugger.debug("validateNow:" + e, this);
+				Debugger.debug("draw:" + e, this);
 				Drawer.drawRectArea(this, _startX, _startY, _wsize, _hsize, _bgColor, _bgAlp, _rw, _rh);
 				initReaction();
 			}
