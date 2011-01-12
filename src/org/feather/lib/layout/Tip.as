@@ -1,10 +1,11 @@
 package org.feather.lib.layout
 {
 	import flash.events.Event;
+	import flash.filters.*;
 	import flash.geom.Point;
 
-	import org.feather.utils.display.Drawer;
 	import org.feather.utils.Debugger;
+	import org.feather.utils.display.Drawer;
 
 	/**
 	 * 提示框
@@ -24,7 +25,9 @@ package org.feather.lib.layout
 		private var _center:Point;
 		private var _pA:Point;
 		private var _pB:Point;
-
+		/**滤镜*/
+		private var _dropShadow:DropShadowFilter;
+		private var _colorMatrix:ColorMatrixFilter;
 
 		public function Tip(style:Object=null):void
 		{
@@ -35,23 +38,37 @@ package org.feather.lib.layout
 		{
 			_style.wsize=_wsize=(_style && (_style.wsize || _style.wsize === 0)) ? _style.wsize : 200;
 			_style.hsize=_hsize=(_style && (_style.hsize || _style.hsize === 0)) ? _style.hsize : 100;
-			_style.anchor=_anchor=_style && _style.anchor ? _style.anchor : null;
-			_style.len=_len=_style && _style.len ? style.len : 20;
 			super.commitProperties();
+			_style.anchor=_anchor=_style && _style.anchor ? _style.anchor : new Point(_wsize / 2 + _startX, _hsize + _startY + 50);
+			_style.len=_len=_style && _style.len ? style.len : 30;
+			calcProperties();
+			_dropShadow=new DropShadowFilter(2, 45, 0x0077FF, 1, 8, 8, 1);
+			var matrix:Array=new Array();
+			matrix=matrix.concat([1, 0, 0, 0, 0]); // red
+			matrix=matrix.concat([0, 1, 0, 0, 0]); // green
+			matrix=matrix.concat([0, 0, 1, 0, 0]); // blue
+			matrix=matrix.concat([0, 0, 0, 0.2, 0]); // alpha
+			_colorMatrix=new ColorMatrixFilter(matrix);
+		}
+
+		private function calcProperties():void
+		{
 			_center=new Point(_wsize / 2 + _startX, _hsize / 2 + _startY);
 			_pA=new Point(_center.x - _len, _center.y);
 			_pB=new Point(_center.x + _len, _center.y);
-
 		}
 
 		override protected function draw(e:Event=null):void
 		{
 			if (((e && e.eventPhase != 3) || !e) && this.parent)
 			{
+				calcProperties();
 				super.draw();
 				Debugger.debug("draw:" + e, this);
-				Drawer.drawTriangleArea(this, _anchor, _pA, _pB, _bgColor, 1);
+				Drawer.drawTriangleArea(this, _anchor, _pA, _pB, _bgColor, _bgAlp);
+				this.filters=[_dropShadow, _colorMatrix];
 			}
 		}
+
 	}
 }

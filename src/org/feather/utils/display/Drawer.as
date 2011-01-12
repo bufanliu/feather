@@ -13,6 +13,7 @@ package org.feather.utils.display
 
 	import org.feather.config.LayoutConfig;
 	import org.feather.lib.layout.BorderFillLayout;
+	import org.feather.utils.Debugger;
 
 	/**
 	 *  几何图形绘制类
