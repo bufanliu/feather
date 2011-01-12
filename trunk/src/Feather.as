@@ -32,7 +32,7 @@ package
 	{
 		public function Feather()
 		{
-			/*var a:Label=new Label();
+			var a:Label=new Label();
 			   a.selectable=true;
 			   a.autoSize=TextFieldAutoSize.CENTER;
 
@@ -90,7 +90,7 @@ package
 			   //c.thickness=5;
 			   //stage.invalidate();
 
-			 var g:ShapeComponent=new ShapeComponent();*/
+			 var g:ShapeComponent=new ShapeComponent();
 
 			/*var spr:Container=new Container();
 			   addChild(spr);
@@ -98,9 +98,9 @@ package
 			   spr.bgColor=0xFFFF00;
 			 spr.thickness=5;*/
 
-			var c:CircleComponent=new CircleComponent({radius: 100, thickness: 30, bgColor: 0xFF0000, bgAlp: 0.5, borderAlp: 0.5, borderLayout: BorderFillLayout.MIDDLE});
+			/*var c:CircleComponent=new CircleComponent({radius: 100, thickness: 30, bgColor: 0xFF0000, bgAlp: 0.5, borderAlp: 0.5, borderLayout: BorderFillLayout.MIDDLE});
 			addChild(c);
-			c.move(stage.stageWidth / 2, stage.stageHeight / 2);
+			c.move(stage.stageWidth / 2, stage.stageHeight / 2);*/
 		}
 	}
 }
