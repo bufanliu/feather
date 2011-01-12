@@ -1,0 +1,57 @@
+package org.feather.lib.layout
+{
+	import flash.events.Event;
+	import flash.geom.Point;
+
+	import org.feather.utils.display.Drawer;
+	import org.feather.utils.Debugger;
+
+	/**
+	 * 提示框
+	 * @author Aaron Wei
+	 * @email weilong1@staff.sina.com.cn
+	 * @msn asianfalcon@msn.com
+	 * @qq 120020062
+	 * @copy Copyright © 1996 - 2012 SINA Corporation, All Rights Reserved
+	 */
+	public class Tip extends ProSprite
+	{
+		/**tip锚点*/
+		protected var _anchor:Point;
+		/**锚边长度*/
+		private var _len:Number;
+		/**tip主对话框中心点*/
+		private var _center:Point;
+		private var _pA:Point;
+		private var _pB:Point;
+
+
+		public function Tip(style:Object=null):void
+		{
+			super(style);
+		}
+
+		override protected function commitProperties():void
+		{
+			_style.wsize=_wsize=(_style && (_style.wsize || _style.wsize === 0)) ? _style.wsize : 200;
+			_style.hsize=_hsize=(_style && (_style.hsize || _style.hsize === 0)) ? _style.hsize : 100;
+			_style.anchor=_anchor=_style && _style.anchor ? _style.anchor : null;
+			_style.len=_len=_style && _style.len ? style.len : 20;
+			super.commitProperties();
+			_center=new Point(_wsize / 2 + _startX, _hsize / 2 + _startY);
+			_pA=new Point(_center.x - _len, _center.y);
+			_pB=new Point(_center.x + _len, _center.y);
+
+		}
+
+		override protected function draw(e:Event=null):void
+		{
+			if (((e && e.eventPhase != 3) || !e) && this.parent)
+			{
+				super.draw();
+				Debugger.debug("draw:" + e, this);
+				Drawer.drawTriangleArea(this, _anchor, _pA, _pB, _bgColor, 1);
+			}
+		}
+	}
+}
