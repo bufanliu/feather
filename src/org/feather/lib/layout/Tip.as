@@ -39,7 +39,7 @@ package org.feather.lib.layout
 			_style.wsize=_wsize=(_style && (_style.wsize || _style.wsize === 0)) ? _style.wsize : 200;
 			_style.hsize=_hsize=(_style && (_style.hsize || _style.hsize === 0)) ? _style.hsize : 100;
 			super.commitProperties();
-			_style.anchor=_anchor=_style && _style.anchor ? _style.anchor : new Point(_wsize / 2 + _startX, _hsize + _startY + 50);
+			_style.anchor=_anchor=_style && _style.anchor ? new Point(_anchor.x - x, _anchor.y - y) : new Point(_wsize / 2 + _startX, _hsize + _startY + 50);
 			_style.len=_len=_style && _style.len ? style.len : 30;
 			calcProperties();
 			_dropShadow=new DropShadowFilter(2, 45, 0x0077FF, 1, 8, 8, 1);
@@ -68,6 +68,21 @@ package org.feather.lib.layout
 				Drawer.drawTriangleArea(this, _anchor, _pA, _pB, _bgColor, _bgAlp);
 				this.filters=[_dropShadow, _colorMatrix];
 			}
+		}
+
+		public function get anchor():Point
+		{
+			return _anchor;
+		}
+
+		public function set anchor(p:Point):void
+		{
+			if (p.x !== _anchor.x || p.y !== _anchor.y)
+			{
+				_changed=true;
+				_style.anchor=_anchor=new Point(p.x - x, p.y - y);
+			}
+			validate();
 		}
 
 	}
