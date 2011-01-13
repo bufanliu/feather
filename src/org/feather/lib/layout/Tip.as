@@ -54,8 +54,9 @@ package org.feather.lib.layout
 		private function calcProperties():void
 		{
 			_center=new Point(_wsize / 2 + _startX, _hsize / 2 + _startY);
-			_pA=new Point(_center.x - _len, _center.y);
-			_pB=new Point(_center.x + _len, _center.y);
+			_pA=new Point(_center.x - (_anchor.y - _center.y) * _len /(Point.distance(_anchor, _center)), _center.y - (_center.x - _anchor.x) * _len / (Point.distance(_anchor, _center)));
+			_pB=new Point(_center.x * 2 - _pA.x, _center.y * 2 - _pA.y);
+			Debugger.debug("7777777777777     "+_center+"   "+_pA+"   "+_pB+"   "+_len);
 		}
 
 		override protected function draw(e:Event=null):void
