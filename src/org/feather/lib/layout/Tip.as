@@ -42,12 +42,12 @@ package org.feather.lib.layout
 			_style.anchor=_anchor=_style && _style.anchor ? new Point(_anchor.x - x, _anchor.y - y) : new Point(_wsize / 2 + _startX, _hsize + _startY + 50);
 			_style.len=_len=_style && _style.len ? style.len : 30;
 			calcProperties();
-			_dropShadow=new DropShadowFilter(2, 45, 0x0077FF, 1, 8, 8, 1);
+			_dropShadow=new DropShadowFilter(2, 45, 0x0077FF, 1, 8, 8, 2);
 			var matrix:Array=new Array();
 			matrix=matrix.concat([1, 0, 0, 0, 0]); // red
 			matrix=matrix.concat([0, 1, 0, 0, 0]); // green
 			matrix=matrix.concat([0, 0, 1, 0, 0]); // blue
-			matrix=matrix.concat([0, 0, 0, 0.2, 0]); // alpha
+			matrix=matrix.concat([0, 0, 0, 0.4, 0]); // alpha
 			_colorMatrix=new ColorMatrixFilter(matrix);
 		}
 
